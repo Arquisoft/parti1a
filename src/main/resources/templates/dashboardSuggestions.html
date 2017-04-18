@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ 	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+ 	<title>Dashboard</title>
+ 	
+ 	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+ 	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+ 	
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 	<script type="text/javascript" th:src="@{/js/suggestions.js}"></script>
+ 	
+ 	<link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}"/>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="dashboardAdmin">Dashboard</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+	<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" id="menu">
+	      <ul class="nav nav-sidebar">
+	        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+	      	<li><a href="dashboardGraphics" id="enlaceGraficas">Graphics</a></li>
+	      </ul>
+        </div>
+        
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          	<h1 class="page-header">Dashboard</h1>
+	
+			<h2 class="sub-header">Suggestions</h2>
+	        <div class="table-responsive">
+	        	<table class="table table-striped" id="sugerencias">
+					<tr>
+						<th>Ident</th>
+						<th>Name</th>
+						<th>Votes</th>
+						<th>Comments</th>
+					</tr>
+					<tr th:each="suggestion : ${allSuggestions}">
+						<th th:if="${suggestion.aprobada}">
+							<a class="sugerencia" th:href="${suggestion.identificador}" th:text="${suggestion.identificador}" style="color:red;"></a>
+						</th>
+						<th th:unless="${suggestion.aprobada}">
+							<a class="sugerencia" th:href="${suggestion.identificador}" th:text="${suggestion.identificador}"></a>
+						</th>
+						<td th:text="${suggestion.nombre}"></td>
+						<td th:text="${suggestion.votosPositivos}"></td>
+						<td th:text="${suggestion.numComments}"></td>
+                    </tr>   
+				</table>
+			</div>
+		</div>
+	  </div>
+	</div>
+	
+	<div class="modal fade" id="alerta" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Suggestion alert</h4>
+				</div>
+				<div class="modal-body">
+					<p>Suggestion has been approved.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

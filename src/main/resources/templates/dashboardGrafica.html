@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ 	<meta charset="UTF-8"/>
+ 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+ 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+ 	
+ 	<title>Dashboard</title>
+ 	 	
+ 	<link href="/css/basic.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="/js/enhance.js"></script>		
+	<script type="text/javascript">
+		enhance({
+			loadScripts: [
+				'/js/excanvas.js',
+				'/js/jquery.min.js',
+				'/js/visualize.jQuery.js',
+				'/js/example.js'
+			],
+			loadStyles: [
+				'/css/visualize.css',
+				'/css/visualize-light.css'
+			]
+		});   
+    </script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="dashboardAdmin">Dashboard</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+	<div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+	      <ul class="nav nav-sidebar">
+	      	<li><a href="dashboardAdmin">Overview</a></li>
+	        <li class="active"><a href="#">Graphics<span class="sr-only">(current)</span></a></li>
+	      </ul>
+        </div>
+        
+         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          	<h1 class="page-header">Dashboard</h1>
+				<table>
+					<caption>Resumen de las propuestas</caption>
+					<thead>
+						<tr>
+							<th scope="col">Comentario</th>
+							<th scope="col">Número de votos positivos</th>
+							<th scope="col">Número de comentarios</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">Propuesta1</th>
+							<td>4</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<th scope="row">Propuesta2</th>
+							<td>4</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<th scope="row">Propuesta3</th>
+							<td>2</td>
+							<td>1</td>
+						</tr>		
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+ 	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+</html>

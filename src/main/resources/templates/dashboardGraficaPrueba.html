@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ 	<meta charset="UTF-8"/>
+ 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+ 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+ 	
+ 	<title>Dashboard</title>
+ 	 	
+ 	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+ 	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+		var suggestions = [[${allSuggestions}]];
+		var count = [[${allVotes}]];
+
+		var barChartData = {
+			labels: suggestions,
+			datasets: [
+				{
+					label: "Votes",
+					borderWidth: 1,
+					data: count
+				}
+			]
+		};
+
+		 window.onload = function() {
+			var ctx = document.getElementById("grafica1").getContext("2d");
+			window.chartBar = new Chart(ctx, {
+				type: 'bar',
+				data: barChartData,
+				options: {
+					responsive: true,
+					legend: {
+						position: 'top',
+					},
+					title: {
+						display: true,
+						text: 'Suggestions Bar Chart'
+					},
+					display: true,
+					scales: {
+						yAxes: [{
+							ticks: {
+								min: 0,
+								suggestedMax: 10,
+								fixedStepSize: 1
+							}
+						}]
+					}
+				}
+			});
+		};
+
+		var eventSource = new EventSource("/dashboardAdmin/updates");
+
+		eventSource.addEventListener("newSuggestion", function(event) {
+			var obj = JSON.parse(event.data);
+			
+			barChartData.labels.push(obj.suggestion);
+			barChartData.datasets[0].data.push(1);
+			
+			window.chartBar.update();
+		});
+
+		eventSource.addEventListener("voteSuggestion", function(event) {
+			var suggestion = JSON.parse(event.data).suggestion;
+			var index = barChartData.labels.indexOf(suggestion);
+			
+			barChartData.datasets[0].data[index] = barChartData.datasets[0].data[index] + 1;
+			
+			window.chartBar.update();
+		});
+		/*]]>*/
+	</script>
+ 	
+ 	<link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}"/>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="dashboardAdmin">Dashboard</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar" id="menu">
+			  <ul class="nav nav-sidebar">
+				<li><a href="dashboardAdmin" id="enlaceInicio">Overview</a></li>
+				<li class="active"><a href="#">Graphics<span class="sr-only">(current)</span></a></li>
+			  </ul>
+			</div>
+			
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h1 class="page-header">Graphics</h1>
+				<canvas id="grafica1"></canvas>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
