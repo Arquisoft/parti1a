@@ -22,6 +22,7 @@ import asw.dbManagement.repository.CommentaryRepository;
 import asw.dbManagement.repository.ParticipantRepository;
 import asw.dbManagement.repository.SuggestionRepository;
 
+// Productor de prueba
 @ManagedBean
 public class MessageProducer {
 	// Para generar codigos aleatorios alfanumericos
