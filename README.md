@@ -5,3 +5,13 @@
 # parti1a
 
 
+# Authors
+
+- David Lorenzo González (UO244795)
+- Martín Peláez Díaz (UO236974)
+- Laura Menéndez Pérez (UO244646)
+- Fernando Palazuelo Ginzo (UO244588)
+- Daniel Alba Muíz (UO245188)
+- Rubén de la Varga Cabero (UO246977)
+- Ignacio Escribano Burgos (UO227766)
+- Daniel Duque Barrientos (UO245553)
