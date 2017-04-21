@@ -5,9 +5,16 @@ import java.io.Serializable;
 public class VoteCommentaryKey implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	protected Long participant;
+	protected Long comment;
 
-	Long participant;
-	Long comment;
+	VoteCommentaryKey() {
+	}
+
+	public VoteCommentaryKey(Long participant, Long comment) {
+		this.participant = participant;
+		this.comment = comment;
+	}
 
 	@Override
 	public int hashCode() {
@@ -39,4 +46,5 @@ public class VoteCommentaryKey implements Serializable {
 			return false;
 		return true;
 	}
+
 }

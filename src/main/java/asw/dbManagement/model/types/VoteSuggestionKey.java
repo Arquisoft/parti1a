@@ -5,9 +5,16 @@ import java.io.Serializable;
 public class VoteSuggestionKey implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	protected Long participant;
+	protected Long suggestion;
 
-	Long participant;
-	Long suggestion;
+	VoteSuggestionKey() {
+	}
+
+	public VoteSuggestionKey(Long participant, Long suggestion) {
+		this.participant = participant;
+		this.suggestion = suggestion;
+	}
 
 	@Override
 	public int hashCode() {
