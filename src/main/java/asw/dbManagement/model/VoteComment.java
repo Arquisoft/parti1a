@@ -14,8 +14,8 @@ import asw.dbManagement.model.types.VoteType;
 
 @Entity
 @IdClass(VoteCommentaryKey.class)
-@Table(name = "TVoteCommentary")
-public class VoteCommentary {
+@Table(name = "TVoteComment")
+public class VoteComment {
 
 	@Id
 	@ManyToOne
@@ -25,14 +25,15 @@ public class VoteCommentary {
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "COMMENTARY_ID", referencedColumnName = "ID")
-	private Commentary commentary;
+	private Comment comment;
+	
 	@Enumerated(EnumType.STRING)
 	private VoteType voteType;
 
-	VoteCommentary() {
+	VoteComment() {
 	}
 
-	public VoteCommentary(Participant participant, Commentary commentary, VoteType voteType) {
+	public VoteComment(Participant participant, Comment commentary, VoteType voteType) {
 		this.voteType = voteType;
 		Association.VotarCommentary.link(participant, this, commentary);
 		commentary.incrementarNumeroVotos(voteType);		
@@ -46,16 +47,16 @@ public class VoteCommentary {
 		this.participant = participant;
 	}
 
-	public Commentary getCommentary() {
-		return commentary;
+	public Comment getCommentary() {
+		return comment;
 	}
 
-	protected void _setComentary(Commentary commentary) {
-		this.commentary = commentary;
+	protected void _setComentary(Comment commentary) {
+		this.comment = commentary;
 	}
 
 	public void deleteVoteCommentary() {
-		commentary.decrementarNumeroVotos(voteType);
+		comment.decrementarNumeroVotos(voteType);
 		Association.VotarCommentary.unlink(this);
 	}
 
@@ -69,6 +70,6 @@ public class VoteCommentary {
 
 	@Override
 	public String toString() {
-		return "VoteCommentary [participant=" + participant + ", comentary=" + commentary + "]";
+		return "VoteCommentary [participant=" + participant + ", comentary=" + comment + "]";
 	}
 }

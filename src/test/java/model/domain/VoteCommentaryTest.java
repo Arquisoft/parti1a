@@ -9,18 +9,18 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 
-import asw.dbManagement.model.Commentary;
+import asw.dbManagement.model.Comment;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
-import asw.dbManagement.model.VoteCommentary;
+import asw.dbManagement.model.VoteComment;
 import asw.dbManagement.model.types.VoteType;
 
 public class VoteCommentaryTest {
 
 	private Participant participant1, participant2, participant3;
 	private Suggestion suggestion1, suggestion2, suggestion3;
-	private Commentary comentario1, comentario2, comentario3;
-	private VoteCommentary voto1, voto2, voto3, voto4, voto5, voto6, voto7, voto8, voto9;
+	private Comment comentario1, comentario2, comentario3;
+	private VoteComment voto1, voto2, voto3, voto4, voto5, voto6, voto7, voto8, voto9;
 
 	@Before
 	public void setUp() {
@@ -38,21 +38,21 @@ public class VoteCommentaryTest {
 		suggestion3 = new Suggestion("87946543127849+123798", "Fiestas universitarias",
 				"Incrementar el número de fiestas techno en la universidad", 10, participant3);
 		// Creacion comentarios
-		comentario1 = new Commentary("vihvdfibwe", "comenario prueba 1 sobre suggestion1", participant1, suggestion1);
-		comentario2 = new Commentary("vifjbjjdoe", "comenario prueba 2 sobre suggestion2", participant2, suggestion2);
-		comentario3 = new Commentary("vifjbjjdoe", "comenario prueba 3 sobre suggestion3", participant3, suggestion3);
+		comentario1 = new Comment("vihvdfibwe", "comenario prueba 1 sobre suggestion1", participant1, suggestion1);
+		comentario2 = new Comment("vifjbjjdoe", "comenario prueba 2 sobre suggestion2", participant2, suggestion2);
+		comentario3 = new Comment("vifjbjjdoe", "comenario prueba 3 sobre suggestion3", participant3, suggestion3);
 		// Creacion voto comentario
-		voto1 = new VoteCommentary(participant1, comentario1, VoteType.NEGATIVE);
-		voto2 = new VoteCommentary(participant2, comentario1, VoteType.POSITIVE);
-		voto3 = new VoteCommentary(participant3, comentario1, VoteType.POSITIVE);
+		voto1 = new VoteComment(participant1, comentario1, VoteType.NEGATIVE);
+		voto2 = new VoteComment(participant2, comentario1, VoteType.POSITIVE);
+		voto3 = new VoteComment(participant3, comentario1, VoteType.POSITIVE);
 
-		voto4 = new VoteCommentary(participant1, comentario2, VoteType.NEGATIVE);
-		voto5 = new VoteCommentary(participant2, comentario2, VoteType.POSITIVE);
-		voto6 = new VoteCommentary(participant3, comentario2, VoteType.POSITIVE);
+		voto4 = new VoteComment(participant1, comentario2, VoteType.NEGATIVE);
+		voto5 = new VoteComment(participant2, comentario2, VoteType.POSITIVE);
+		voto6 = new VoteComment(participant3, comentario2, VoteType.POSITIVE);
 
-		voto7 = new VoteCommentary(participant1, comentario3, VoteType.NEGATIVE);
-		voto8 = new VoteCommentary(participant2, comentario3, VoteType.POSITIVE);
-		voto9 = new VoteCommentary(participant3, comentario3, VoteType.POSITIVE);
+		voto7 = new VoteComment(participant1, comentario3, VoteType.NEGATIVE);
+		voto8 = new VoteComment(participant2, comentario3, VoteType.POSITIVE);
+		voto9 = new VoteComment(participant3, comentario3, VoteType.POSITIVE);
 	}
 
 	@Test
@@ -156,11 +156,11 @@ public class VoteCommentaryTest {
 	
 	@Test
 	public void testMetodosComentario(){
-		comentario1.setContenido("prueba");
+		comentario1.setTexto("prueba");
 		comentario1.setVotosPositivos(100);
 		comentario1.setVotosNegativos(10);
 		
-		assertTrue(comentario1.getContenido().equals("prueba"));
+		assertTrue(comentario1.getTexto().equals("prueba"));
 		assertTrue(comentario1.getVotosPositivos() == 100);
 		assertTrue(comentario1.getVotosNegativos() == 10);
 		assertTrue(comentario1.getIdentificador().equals("vihvdfibwe"));

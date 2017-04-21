@@ -1,9 +1,14 @@
 package asw.dbManagement.model;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+import asw.dbManagement.model.types.SuggestionState;
 import asw.dbManagement.model.types.VoteType;
 
 @Entity
@@ -22,22 +30,39 @@ public class Suggestion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String identificador;
-	private String nombre;
-	private String contenido;
+	private String titulo;
+	private String descripcion;
 	private int votosPositivos = 0;
 	private int votosNegativos = 0;
 	private int votosMinimos;
-
-	@ManyToOne
-	private Participant participant;
-	@OneToMany(mappedBy = "suggestion", fetch = FetchType.EAGER)
-	private Set<Commentary> commentaries = new HashSet<Commentary>();
-	@OneToMany(mappedBy = "suggestion")
-	private Set<VoteSuggestion> votesSuggestion = new HashSet<VoteSuggestion>();
-
+	private int popularidad = 0;
 	private int numComments = 0;
 	private boolean aprobada;
 	private boolean alert;
+	
+	@Enumerated(EnumType.STRING)
+	private SuggestionState estado;// igual era bueno quitar lo de alert y
+									// probada y trabajar con este enum de
+									// momentio se queda asi.
+
+	@Column(name = "fecha_creacion")
+	@Temporal(TemporalType.DATE)
+	private Date fechaCreacion;
+	@Column(name = "fecha_fin")
+	@Temporal(TemporalType.DATE)
+	private Date fechaFin;
+
+	@ManyToOne
+	private Category category;
+	@ManyToOne
+	private Participant participant;
+	@OneToMany(mappedBy = "suggestion", fetch = FetchType.EAGER)
+	private Set<Comment> commentaries = new HashSet<Comment>();
+	@OneToMany(mappedBy = "suggestion")
+	private Set<VoteSuggestion> votesSuggestion = new HashSet<VoteSuggestion>();
+
+	public static final int DIAS_ABIERTA = 7;
+	public static final int MIN_VOTOS_DEFECTO = 100;
 
 	Suggestion() {
 	}
@@ -47,29 +72,53 @@ public class Suggestion {
 		this.identificador = identificador;
 	}
 
-	public Suggestion(String identificador, String nombre, String contenido, int votosMinimos,
+	public Suggestion(String identificador, String titulo, String descripcion, Participant participant) {
+		this(identificador);
+		this.titulo = titulo;
+		this.descripcion = descripcion;
+		this.votosMinimos = MIN_VOTOS_DEFECTO;
+		Association.Proponer.link(participant, this);
+	}
+
+	public Suggestion(String identificador, String titulo, String descripcion, Participant creator, Category category) {
+		this(identificador);
+		this.titulo = titulo;
+		this.descripcion = descripcion;
+		this.fechaCreacion = Calendar.getInstance().getTime();
+		this.estado = SuggestionState.BuscandoApoyo;
+		this.votosMinimos = MIN_VOTOS_DEFECTO;
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.DATE, DIAS_ABIERTA); // Pone la fecha de finalización
+											// DIAS_ABIERTA mas tarde
+		this.fechaFin = c.getTime();
+		this.category = category;// esto esta como la mierda tendria que ir en
+									// el link.
+		Association.Proponer.link(participant, this);
+	}
+
+	public Suggestion(String identificador, String titulo, String descripcion, int votosMinimos,
 			Participant participant) {
 		this(identificador);
-		this.nombre = nombre;
-		this.contenido = contenido;
+		this.titulo = titulo;
+		this.descripcion = descripcion;
 		this.votosMinimos = votosMinimos;
 		Association.Proponer.link(participant, this);
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getTitulo() {
+		return titulo;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
-	public String getContenido() {
-		return contenido;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setContenido(String contenido) {
-		this.contenido = contenido;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public int getVotosPositivos() {
@@ -108,11 +157,11 @@ public class Suggestion {
 		return id;
 	}
 
-	public Set<Commentary> getCommentaries() {
-		return new HashSet<Commentary>(commentaries);
+	public Set<Comment> getCommentaries() {
+		return new HashSet<Comment>(commentaries);
 	}
 
-	protected Set<Commentary> _getCommentaries() {
+	protected Set<Comment> _getCommentaries() {
 		return commentaries;
 	}
 
@@ -122,6 +171,14 @@ public class Suggestion {
 
 	protected Set<VoteSuggestion> _getVotesSuggestion() {
 		return votesSuggestion;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public String getIdentificador() {
@@ -136,10 +193,10 @@ public class Suggestion {
 		this.numComments = numComments;
 	}
 
-	public void setAprobada(boolean aprobada){
+	public void setAprobada(boolean aprobada) {
 		this.aprobada = aprobada;
 	}
-	
+
 	public boolean isAprobada() {
 		return aprobada;
 	}
@@ -150,6 +207,38 @@ public class Suggestion {
 
 	public void setAlert(boolean alert) {
 		this.alert = alert;
+	}
+
+	public int getPopularidad() {
+		return popularidad;
+	}
+
+	public void setPopularidad(int popularidad) {
+		this.popularidad = popularidad;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public SuggestionState getEstado() {
+		return estado;
+	}
+
+	public void setEstado(SuggestionState estado) {
+		this.estado = estado;
 	}
 
 	@Override
@@ -191,6 +280,7 @@ public class Suggestion {
 			votosPositivos++;
 		else if (voteType.equals(VoteType.NEGATIVE))
 			votosNegativos++;
+		this.popularidad = this.votosPositivos - this.votosNegativos;
 	}
 
 	/**
@@ -203,5 +293,6 @@ public class Suggestion {
 			votosPositivos--;
 		else if (voteType.equals(VoteType.NEGATIVE))
 			votosNegativos--;
+		this.popularidad = this.votosPositivos - this.votosNegativos;
 	}
 }

@@ -8,18 +8,18 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import asw.dbManagement.model.Commentary;
+import asw.dbManagement.model.Comment;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
-import asw.dbManagement.model.VoteCommentary;
+import asw.dbManagement.model.VoteComment;
 import asw.dbManagement.model.types.VoteType;
 
 public class VotarCommentaryTest {
 
 	private Participant participant, participantComentario;
 	private Suggestion suggestion;
-	private VoteCommentary voto;
-	private Commentary commentary;
+	private VoteComment voto;
+	private Comment commentary;
 
 	@SuppressWarnings("deprecation")
 	@Before
@@ -30,9 +30,9 @@ public class VotarCommentaryTest {
 
 		participantComentario = new Participant("dueño", "comentario", "diaz", new Date(1993, 11, 12), "pepe@gmail.com",
 				"7654321", "Calle Uria", "ESP", false, false);
-		commentary = new Commentary("comentario de prueba ", "esto es un comentario de prueba", participantComentario,
+		commentary = new Comment("comentario de prueba ", "esto es un comentario de prueba", participantComentario,
 				suggestion);
-		voto = new VoteCommentary(participant, commentary, VoteType.POSITIVE);
+		voto = new VoteComment(participant, commentary, VoteType.POSITIVE);
 	}
 
 	@Test
@@ -60,7 +60,7 @@ public class VotarCommentaryTest {
 
 	@Test
 	public void testSafeReturn() {
-		Set<VoteCommentary> votos = participant.getVotesCommentary();
+		Set<VoteComment> votos = participant.getVotesCommentary();
 		votos.remove(voto);
 
 		assertTrue(votos.size() == 0);

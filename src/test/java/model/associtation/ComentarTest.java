@@ -9,7 +9,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import asw.dbManagement.model.Commentary;
+import asw.dbManagement.model.Comment;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
 
@@ -17,7 +17,7 @@ public class ComentarTest {
 	
 	private Participant participant,participantComentario;
 	private Suggestion suggestion;
-	private Commentary commentary;
+	private Comment commentary;
 
 	@SuppressWarnings("deprecation")
 	@Before
@@ -29,7 +29,7 @@ public class ComentarTest {
 		participantComentario = new Participant("dueño", "comentario", "diaz", new Date(1993, 11, 12), "pepe@gmail.com",
 				"7654321", "Calle Uria", "ESP", false, false);
 		
-		commentary = new Commentary("comentario de prueba ", "esto es un comentario de prueba",participantComentario,suggestion);
+		commentary = new Comment("comentario de prueba ", "esto es un comentario de prueba",participantComentario,suggestion);
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class ComentarTest {
 	
 	@Test
 	public void testSafeReturn(){
-		Set<Commentary> comentarios = participant.getCommentaries();
+		Set<Comment> comentarios = participant.getCommentaries();
 		comentarios.remove(commentary);
 		
 		assertTrue(comentarios.size() == 0);

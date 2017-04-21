@@ -40,11 +40,11 @@ public class Participant {
 	@OneToMany(mappedBy = "participant", fetch=FetchType.EAGER)
 	private Set<Suggestion> suggestions = new HashSet<Suggestion>();
 	@OneToMany(mappedBy = "participant", fetch=FetchType.EAGER)
-	private Set<Commentary> commentaries = new HashSet<Commentary>();
+	private Set<Comment> commentaries = new HashSet<Comment>();
 	@OneToMany(mappedBy = "participant")
 	private Set<VoteSuggestion> votesSuggestion = new HashSet<VoteSuggestion>();
 	@OneToMany(mappedBy = "participant")
-	private Set<VoteCommentary> votesCommentaries = new HashSet<VoteCommentary>();
+	private Set<VoteComment> votesCommentaries = new HashSet<VoteComment>();
 
 	/**
 	 * Constructor vacío (ya que es para mapear)
@@ -151,11 +151,11 @@ public class Participant {
 		return suggestions;
 	}
 
-	public Set<Commentary> getCommentaries() {
-		return new HashSet<Commentary>(commentaries);
+	public Set<Comment> getCommentaries() {
+		return new HashSet<Comment>(commentaries);
 	}
 
-	protected Set<Commentary> _getCommentaries() {
+	protected Set<Comment> _getCommentaries() {
 		return commentaries;
 	}
 
@@ -167,11 +167,11 @@ public class Participant {
 		return votesSuggestion;
 	}
 	
-	public Set<VoteCommentary> getVotesCommentary() {
-		return new HashSet<VoteCommentary>(votesCommentaries);
+	public Set<VoteComment> getVotesCommentary() {
+		return new HashSet<VoteComment>(votesCommentaries);
 	}
 
-	protected Set<VoteCommentary> _getVotesCommentary() {
+	protected Set<VoteComment> _getVotesCommentary() {
 		return votesCommentaries;
 	}
 

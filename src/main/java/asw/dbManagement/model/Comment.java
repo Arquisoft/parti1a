@@ -1,8 +1,11 @@
 package asw.dbManagement.model;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,48 +13,55 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import asw.dbManagement.model.types.VoteType;
 
 @Entity
-@Table(name = "TCommentaries")
-public class Commentary {
+@Table(name = "TComments")
+public class Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String identificador;
-	private String contenido;
+	private String texto;
 	private int votosPositivos = 0;
 	private int votosNegativos = 0;
+	private int valoracion = 0;
+	@Column(name="fecha_creacion")
+	@Temporal(TemporalType.DATE)
+	private Date fechaCreacion;
 
 	@ManyToOne
 	private Participant participant;
 	@ManyToOne
 	private Suggestion suggestion;
-	@OneToMany(mappedBy = "commentary")
-	private Set<VoteCommentary> votesCommentaries = new HashSet<VoteCommentary>();
+	@OneToMany(mappedBy = "comment")
+	private Set<VoteComment> votesCommentaries = new HashSet<VoteComment>();
 
-	Commentary() {
+	Comment() {
 	}
 
-	public Commentary(String identificador) {
+	public Comment(String identificador) {
 		super();
 		this.identificador = identificador;
 	}
 
-	public Commentary(String identificador, String contenido, Participant participant, Suggestion suggestion) {
+	public Comment(String identificador, String texto, Participant participant, Suggestion suggestion) {
 		this(identificador);
-		this.contenido = contenido;
+		this.texto = texto;
+		this.fechaCreacion = Calendar.getInstance().getTime();
 		Association.Comentar.link(participant, this, suggestion);
 	}
 
-	public String getContenido() {
-		return contenido;
+	public String getTexto() {
+		return texto;
 	}
 
-	public void setContenido(String contenido) {
-		this.contenido = contenido;
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
 	public int getVotosPositivos() {
@@ -90,16 +100,32 @@ public class Commentary {
 		return id;
 	}
 
-	public Set<VoteCommentary> getVotesCommentary() {
-		return new HashSet<VoteCommentary>(votesCommentaries);
+	public Set<VoteComment> getVotesCommentary() {
+		return new HashSet<VoteComment>(votesCommentaries);
 	}
 
-	protected Set<VoteCommentary> _getVotesCommentary() {
+	protected Set<VoteComment> _getVotesCommentary() {
 		return votesCommentaries;
 	}
 
 	public String getIdentificador() {
 		return identificador;
+	}
+
+	public int getValoracion() {
+		return valoracion;
+	}
+
+	public void setValoracion(int valoracion) {
+		this.valoracion = valoracion;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 
 	/**
@@ -111,6 +137,7 @@ public class Commentary {
 			votosPositivos++;
 		else if (voteType.equals(VoteType.NEGATIVE))
 			votosNegativos++;
+		this.valoracion = this.votosPositivos - this.votosNegativos;
 	}
 	
 	/**
@@ -122,6 +149,7 @@ public class Commentary {
 			votosPositivos--;
 		else if (voteType.equals(VoteType.NEGATIVE))
 			votosNegativos--;
+		this.valoracion = this.votosPositivos - this.votosNegativos;
 	}
 
 	@Override
@@ -140,7 +168,7 @@ public class Commentary {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Commentary other = (Commentary) obj;
+		Comment other = (Comment) obj;
 		if (identificador == null) {
 			if (other.identificador != null)
 				return false;

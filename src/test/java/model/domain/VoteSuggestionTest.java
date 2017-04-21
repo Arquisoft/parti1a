@@ -142,15 +142,15 @@ public class VoteSuggestionTest {
 
 	@Test
 	public void testMetodosSuggestion() {
-		suggestion1.setContenido("Eliminar prohibicion al botellones");
-		suggestion1.setNombre("Botellones");
+		suggestion1.setDescripcion("Eliminar prohibicion al botellones");
+		suggestion1.setTitulo("Botellones");
 		suggestion1.setVotosMinimos(50);
 		suggestion1.setVotosNegativos(10);
 		suggestion1.setVotosPositivos(10);
 		suggestion1.setAlert(true);
 
-		assertTrue(suggestion1.getContenido().equals("Eliminar prohibicion al botellones"));
-		assertTrue(suggestion1.getNombre().equals("Botellones"));
+		assertTrue(suggestion1.getDescripcion().equals("Eliminar prohibicion al botellones"));
+		assertTrue(suggestion1.getTitulo().equals("Botellones"));
 		assertTrue(suggestion1.getIdentificador().equals("1352479651675846"));
 		assertTrue(suggestion1.getVotosMinimos() == 50);
 		assertTrue(suggestion1.getVotosNegativos() == 10);

@@ -3,10 +3,10 @@ package asw.dbManagement.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import asw.dbManagement.model.Commentary;
+import asw.dbManagement.model.Comment;
 
 @Repository
-public interface CommentaryRepository extends JpaRepository<Commentary, Long>{
+public interface CommentaryRepository extends JpaRepository<Comment, Long>{
 
-	public Commentary findByIdentificador(String identificador);
+	public Comment findByIdentificador(String identificador);
 }

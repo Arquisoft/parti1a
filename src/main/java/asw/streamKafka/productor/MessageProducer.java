@@ -14,7 +14,7 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import asw.Application;
-import asw.dbManagement.model.Commentary;
+import asw.dbManagement.model.Comment;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
 import asw.dbManagement.model.types.VoteType;
@@ -83,7 +83,7 @@ public class MessageProducer {
 		String id = nextId();
 
 		if (s != null && p != null) {
-			commentaryRepository.save(new Commentary(id, "prueba", p, s));
+			commentaryRepository.save(new Comment(id, "prueba", p, s));
 			suggestionRepository.save(s);
 
 			// Identificador del comentario y de la sugerencia
@@ -98,7 +98,7 @@ public class MessageProducer {
 
 	@Scheduled(cron = "*/23 * * * * *")
 	public void sendPositiveComment() {
-		Commentary c = commentRandom();
+		Comment c = commentRandom();
 
 		if (c != null) {
 			// Identificador del comentario y de la sugerencia
@@ -110,7 +110,7 @@ public class MessageProducer {
 
 	@Scheduled(cron = "*/26 * * * * *")
 	public void sendNegativeComment() {
-		Commentary c = commentRandom();
+		Comment c = commentRandom();
 
 		if (c != null) {
 			// Identificador del comentario y de la sugerencia
@@ -161,7 +161,7 @@ public class MessageProducer {
 		return null;
 	}
 
-	private Commentary commentRandom() {
+	private Comment commentRandom() {
 		int size = commentaryRepository.findAll().size();
 		int s;
 		if (size > 0) {
