@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Portal del usuario</title>
+</head>
+<body>
+	<h1>Crear propuesta</h1>
+	<form method="POST" action="create">
+		<p th:text="${mensaje}" />
+		<ul>
+			<li><p>Titulo de la propuesta</p> <input type="text"
+				name="suggestion_title" /></li>
+			<li><p>Descripción de la propuesta</p> <input type="text"
+				name="suggestion_description" /></li>
+			<li><p>Categoria de la propuesta</p> <select name="categoria">
+					<option th:each="iter : ${categorias}" th:value="${iter.id}"
+						th:text="${iter.name}" />
+			</select></li>
+		</ul>
+		<br /> <input type="submit" name="crearPropuesta" value="Crear" />
+	</form>
+</body>
+</html>

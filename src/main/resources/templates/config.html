@@ -1,0 +1,52 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Admin page</title>
+</head>
+<body>
+	<h1>Administration Page</h1>
+	<ul>
+		<li><a href="parameters.html">Parameter configuration</a></li>
+		<li><a href="accepted.html">Accepted Suggestions</a></li>
+		<li><a href="rejected.html">Rejected Suggestions</a></li>
+		<li><a href="transact.html">Suggestions taking support</a></li>
+		<li><a href="voting.html">Suggestions on vote</a></li>
+	</ul>
+	<!--  <h2>Find Suggestion</h2>
+	<form method="POST" action="find">
+		Suggestion Title 
+		<br/>
+		<input type="text" name="suggestion_name" /> 
+		<input type="submit" name="findSug" value="Buscar"/>
+	</form>
+	<table id="suggestionsTable" border="1">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Author</th>
+				<th>Votes</th>
+				<th>State</th>
+				<th>Creation Date</th>
+				<th>End Date</th>
+				<th>Delete Suggestion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="iter : ${suggestions}">
+				<td th:text="${iter.titulo}">Title</td>
+				<td th:text="${iter.descripcion}">Description</td>
+
+				<td th:text="${iter.creator.nombre}">Author</td>
+				<td th:text="${iter.popularidad}">Votes</td>
+				<td th:text="${iter.estado}">State</td>
+				<td th:text="${iter.fecha_creacion}">Creation Date</td>
+				<td th:text="${iter.fecha_fin}">End Date</td>
+				<td align="center"><a id="delete${iter.id}"
+					th:href="@{/delete(sugerencia=${iter.id})}" href="">Delete</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>-->
+</body>
+</html>

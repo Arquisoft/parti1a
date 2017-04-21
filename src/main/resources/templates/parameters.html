@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Administration</title>
+</head>
+<body>
+	<h1>Rejected Suggestions</h1>
+	<ul>
+		<li><a href="parameters.html">Parameter configuration</a></li>
+		<li><a href="accepted.html">Accepted Suggestions</a></li>
+		<li><a href="rejected.html">Rejected Suggestions</a></li>
+		<li><a href="transact.html">Suggestions taking support</a></li>
+		<li><a href="voting.html">Suggestions on vote</a></li>
+	</ul>
+	<form method="POST" action="addCategories">
+		<p th:text="${mensaje}" />
+		Add Category <br /> <input type="text" name="acategory" /> <input
+			type="submit" name="add_category" value="Add" />
+	</form>
+	<form method="POST" action="removeCategories">
+		Remove Category <br /> <input type="text" name="rmcategory" /> <input
+			type="submit" name="rm_category" value="Remove" />
+	</form>
+	<form method="POST" action="addWords">
+		Add non-permitted word <br /> <input type="text" name="npw" /> <input
+			type="submit" name="add_word" value="Add" />
+	</form>
+	<form method="POST" action="removeWords">
+		Remove non-permitted word <br /> <input type="text" name="rpw" /> <input
+			type="submit" name="rm_word" value="Remove" />
+	</form>
+</body>
+</html>
