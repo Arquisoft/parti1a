@@ -53,19 +53,19 @@ public class MessageProducer {
 		}
 	}
 	
-	@Scheduled(cron = "*/30 * * * * *")
-	public void sendDeleteSuggestion() {
-		Suggestion s = suggestionRandom();
-		
-		if (s != null) {
-			suggestionRepository.delete(s.getId());
-
-			// Identificador de la sugerencia
-			send(Topics.DELETE_SUGGESTION, "{ \"suggestion\":\"" + s.getIdentificador() + "\" }");
-			
-			Application.logger.info("Sugerencia eliminada " + s.getIdentificador());
-		}
-	}
+//	@Scheduled(cron = "*/30 * * * * *")
+//	public void sendDeleteSuggestion() {
+//		Suggestion s = suggestionRandom();
+//		
+//		if (s != null) {
+//			suggestionRepository.delete(s.getId());
+//
+//			// Identificador de la sugerencia
+//			send(Topics.DELETE_SUGGESTION, "{ \"suggestion\":\"" + s.getIdentificador() + "\" }");
+//			
+//			Application.logger.info("Sugerencia eliminada " + s.getIdentificador());
+//		}
+//	}
 
 	@Scheduled(cron = "*/15 * * * * *")
 	public void sendPositiveSuggestion() {
