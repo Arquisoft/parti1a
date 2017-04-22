@@ -62,8 +62,6 @@ public class MessageProducer {
 //
 //			// Identificador de la sugerencia
 //			send(Topics.DELETE_SUGGESTION, "{ \"suggestion\":\"" + s.getIdentificador() + "\" }");
-//			
-//			Application.logger.info("Sugerencia eliminada " + s.getIdentificador());
 //		}
 //	}
 
@@ -85,11 +83,7 @@ public class MessageProducer {
 
 				// Identificador de la sugerencia
 				send(Topics.ALERT_SUGGESTION, "{ \"suggestion\":\"" + s.getIdentificador() + "\"}");
-				Application.logger.info("Alerta a" + s.getIdentificador());
 			}
-
-			Application.logger
-					.info("Voto a " + s.getIdentificador() + ", nº votos " + s.getVotosPositivos());
 		}
 	}
 
@@ -107,9 +101,6 @@ public class MessageProducer {
 			String message = "{ \"comment\":\"" + identificador + "\", \"suggestion\":\""
 					+ s.getIdentificador() + "\"}";
 			send(Topics.NEW_COMMENT, message);
-
-			Application.logger.info("Comentario en " + s.getIdentificador() + ", nº comentarios "
-					+ s.getNumComments());
 		}
 	}
 
