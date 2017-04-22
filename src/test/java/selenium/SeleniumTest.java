@@ -18,10 +18,10 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import selenium.page_objects.PO_LoginForm;
 import utils.ThreadUtil;
 
-//@Clean posibles modificaciones en los id al tener prime faces
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@Clean posibles modificaciones en los id al tener prime faces
 public class SeleniumTest {
-
+	
 	// NAVEGADOR HTMLUnit
 	private static WebDriver driver = new HtmlUnitDriver();
 	// FIREFOX

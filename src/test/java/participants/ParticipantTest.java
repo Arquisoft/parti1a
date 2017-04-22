@@ -32,6 +32,7 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
+
 import asw.Application;
 import asw.dbManagement.GetParticipant;
 import asw.dbManagement.model.Participant;
