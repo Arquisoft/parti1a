@@ -37,13 +37,13 @@ public class Suggestion {
 	private int votosMinimos;
 	private int popularidad = 0;
 	private int numComments = 0;
-	private boolean aprobada;
-	private boolean alert;
-	
+
 	@Enumerated(EnumType.STRING)
 	private SuggestionState estado;// igual era bueno quitar lo de alert y
 									// probada y trabajar con este enum de
 									// momentio se queda asi.
+	// Para acceder desde Javascript
+	private boolean aprobada;
 
 	@Column(name = "fecha_creacion")
 	@Temporal(TemporalType.DATE)
@@ -72,7 +72,8 @@ public class Suggestion {
 		this.identificador = identificador;
 	}
 
-	public Suggestion(String identificador, String titulo, String descripcion, Participant participant) {
+	public Suggestion(String identificador, String titulo, String descripcion,
+			Participant participant) {
 		this(identificador);
 		this.titulo = titulo;
 		this.descripcion = descripcion;
@@ -80,7 +81,8 @@ public class Suggestion {
 		Association.Proponer.link(participant, this);
 	}
 
-	public Suggestion(String identificador, String titulo, String descripcion, Participant creator, Category category) {
+	public Suggestion(String identificador, String titulo, String descripcion, Participant creator,
+			Category category) {
 		this(identificador);
 		this.titulo = titulo;
 		this.descripcion = descripcion;
@@ -193,22 +195,6 @@ public class Suggestion {
 		this.numComments = numComments;
 	}
 
-	public void setAprobada(boolean aprobada) {
-		this.aprobada = aprobada;
-	}
-
-	public boolean isAprobada() {
-		return aprobada;
-	}
-
-	public boolean isAlert() {
-		return alert;
-	}
-
-	public void setAlert(boolean alert) {
-		this.alert = alert;
-	}
-
 	public int getPopularidad() {
 		return popularidad;
 	}
@@ -239,6 +225,13 @@ public class Suggestion {
 
 	public void setEstado(SuggestionState estado) {
 		this.estado = estado;
+		
+		if(estado.equals(SuggestionState.Aceptada))
+			aprobada = true;
+	}
+
+	public boolean isAprobada() {
+		return aprobada;
 	}
 
 	@Override

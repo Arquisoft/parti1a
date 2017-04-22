@@ -12,6 +12,7 @@ import org.junit.Test;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
 import asw.dbManagement.model.VoteSuggestion;
+import asw.dbManagement.model.types.SuggestionState;
 import asw.dbManagement.model.types.VoteType;
 
 public class VoteSuggestionTest {
@@ -147,7 +148,7 @@ public class VoteSuggestionTest {
 		suggestion1.setVotosMinimos(50);
 		suggestion1.setVotosNegativos(10);
 		suggestion1.setVotosPositivos(10);
-		suggestion1.setAlert(true);
+		suggestion1.setEstado(SuggestionState.Aceptada);;
 
 		assertTrue(suggestion1.getDescripcion().equals("Eliminar prohibicion al botellones"));
 		assertTrue(suggestion1.getTitulo().equals("Botellones"));
@@ -155,7 +156,7 @@ public class VoteSuggestionTest {
 		assertTrue(suggestion1.getVotosMinimos() == 50);
 		assertTrue(suggestion1.getVotosNegativos() == 10);
 		assertTrue(suggestion1.getVotosPositivos() == 10);
-		assertTrue(suggestion1.isAlert());
+		assertTrue(suggestion1.getEstado().equals(SuggestionState.Aceptada));
 
 		vote1.setVoteType(VoteType.NEGATIVE);
 		assertTrue(vote1.getVoteType().equals(VoteType.NEGATIVE));

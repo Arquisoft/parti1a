@@ -4,7 +4,7 @@ eventSource.addEventListener("newSuggestion", function(event) {
 	var obj = JSON.parse(event.data);
   	var row = document.getElementById("sugerencias").insertRow(-1);
 	row.insertCell(0).outerHTML = `<th><a href="${obj.suggestion}">${obj.suggestion}</a></th>`;
-	row.insertCell(1).innerHTML = obj.name;
+	row.insertCell(1).innerHTML = obj.title;
 	row.insertCell(2).innerHTML = 0;
 	row.insertCell(3).innerHTML = 0;
 });

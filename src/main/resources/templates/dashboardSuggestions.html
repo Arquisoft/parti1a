@@ -55,7 +55,7 @@
 	        	<table class="table table-striped" id="sugerencias">
 					<tr>
 						<th>Ident</th>
-						<th>Name</th>
+						<th>Title</th>
 						<th>Votes</th>
 						<th>Comments</th>
 					</tr>
@@ -66,7 +66,7 @@
 						<th th:unless="${suggestion.aprobada}">
 							<a class="sugerencia" th:href="${suggestion.identificador}" th:text="${suggestion.identificador}"></a>
 						</th>
-						<td th:text="${suggestion.nombre}"></td>
+						<td th:text="${suggestion.titulo}"></td>
 						<td th:text="${suggestion.votosPositivos}"></td>
 						<td th:text="${suggestion.numComments}"></td>
                     </tr>   

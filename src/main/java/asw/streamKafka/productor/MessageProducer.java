@@ -17,6 +17,7 @@ import asw.Application;
 import asw.dbManagement.model.Comment;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
+import asw.dbManagement.model.types.SuggestionState;
 import asw.dbManagement.model.types.VoteType;
 import asw.dbManagement.repository.CommentaryRepository;
 import asw.dbManagement.repository.ParticipantRepository;
@@ -42,12 +43,13 @@ public class MessageProducer {
 	public void sendNewSuggestion() {
 		Participant p = participantRandom();
 		String id = nextId();
+		String title = "prueba";
 
 		if (p != null) {
-			suggestionRepository.save(new Suggestion(id, "prueba", "prueba de sugerencia", 2, p));
+			suggestionRepository.save(new Suggestion(id, title, "prueba de sugerencia", 2, p));
 
-			// Identificador de la sugerencia
-			send(Topics.NEW_SUGGESTION, "{ \"suggestion\":\"" + id + "\", \"name\":\"prueba\"}");
+			// Identificador de la sugerencia y titulo 
+			send(Topics.NEW_SUGGESTION, "{ \"suggestion\":\"" + id + "\", \"title\":\""+ title +"\"}");
 		}
 	}
 
@@ -62,11 +64,11 @@ public class MessageProducer {
 			// Identificador de la sugerencia
 			send(Topics.POSITIVE_SUGGESTION, "{ \"suggestion\":\"" + s.getIdentificador() + "\"}");
 
-			if (s.getVotosPositivos() == s.getVotosMinimos() && !s.isAlert()) {
-				s.setAprobada(true);
-				s.setAlert(true);
+			if (s.getVotosPositivos() == s.getVotosMinimos() && !s.getEstado().equals(SuggestionState.Aceptada)) {
+				s.setEstado(SuggestionState.Aceptada);
 				suggestionRepository.save(s);
 
+				// Identificador de la sugerencia
 				send(Topics.ALERT_SUGGESTION, "{ \"suggestion\":\"" + s.getIdentificador() + "\"}");
 				Application.logger.info("Alerta a" + s.getIdentificador());
 			}
