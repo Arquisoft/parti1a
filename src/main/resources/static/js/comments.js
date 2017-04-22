@@ -1,4 +1,11 @@
 var eventSource = new EventSource("/dashboardAdmin/updates");
+
+eventSource.addEventListener("deleteSuggestion", function(event) {
+	var obj = JSON.parse(event.data);
+	if($('#ident').text() === obj.suggestion) {
+		$("#alerta").modal();
+	}
+});
 		
 eventSource.addEventListener("newComment", function(event) {
 	var obj = JSON.parse(event.data);

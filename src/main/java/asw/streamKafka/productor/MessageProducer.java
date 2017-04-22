@@ -39,17 +39,31 @@ public class MessageProducer {
 	@Autowired
 	ParticipantRepository participantRepository;
 
-	@Scheduled(cron = "*/5 * * * * *")
+	@Scheduled(cron = "*/10 * * * * *")
 	public void sendNewSuggestion() {
 		Participant p = participantRandom();
-		String id = nextId();
+		String identificador = nextId();
 		String title = "prueba";
 
 		if (p != null) {
-			suggestionRepository.save(new Suggestion(id, title, "prueba de sugerencia", 2, p));
+			suggestionRepository.save(new Suggestion(identificador, title, "prueba de sugerencia", 2, p));
 
 			// Identificador de la sugerencia y titulo 
-			send(Topics.NEW_SUGGESTION, "{ \"suggestion\":\"" + id + "\", \"title\":\""+ title +"\"}");
+			send(Topics.NEW_SUGGESTION, "{ \"suggestion\":\"" + identificador + "\", \"title\":\""+ title +"\"}");
+		}
+	}
+	
+	@Scheduled(cron = "*/30 * * * * *")
+	public void sendDeleteSuggestion() {
+		Suggestion s = suggestionRandom();
+		
+		if (s != null) {
+			suggestionRepository.delete(s.getId());
+
+			// Identificador de la sugerencia
+			send(Topics.DELETE_SUGGESTION, "{ \"suggestion\":\"" + s.getIdentificador() + "\" }");
+			
+			Application.logger.info("Sugerencia eliminada " + s.getIdentificador());
 		}
 	}
 
@@ -64,7 +78,8 @@ public class MessageProducer {
 			// Identificador de la sugerencia
 			send(Topics.POSITIVE_SUGGESTION, "{ \"suggestion\":\"" + s.getIdentificador() + "\"}");
 
-			if (s.getVotosPositivos() == s.getVotosMinimos() && !s.getEstado().equals(SuggestionState.Aceptada)) {
+			if (s.getVotosPositivos() == s.getVotosMinimos() 
+					&& !s.getEstado().equals(SuggestionState.Aceptada)) {
 				s.setEstado(SuggestionState.Aceptada);
 				suggestionRepository.save(s);
 
@@ -82,14 +97,14 @@ public class MessageProducer {
 	public void sendNewComment() {
 		Suggestion s = suggestionRandom();
 		Participant p = participantRandom();
-		String id = nextId();
+		String identificador = nextId();
 
 		if (s != null && p != null) {
-			commentaryRepository.save(new Comment(id, "prueba", p, s));
+			commentaryRepository.save(new Comment(identificador, "prueba", p, s));
 			suggestionRepository.save(s);
 
 			// Identificador del comentario y de la sugerencia
-			String message = "{ \"comment\":\"" + id + "\", \"suggestion\":\""
+			String message = "{ \"comment\":\"" + identificador + "\", \"suggestion\":\""
 					+ s.getIdentificador() + "\"}";
 			send(Topics.NEW_COMMENT, message);
 

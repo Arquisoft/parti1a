@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -39,10 +40,12 @@ public class Suggestion {
 	private int numComments = 0;
 
 	@Enumerated(EnumType.STRING)
-	private SuggestionState estado;// igual era bueno quitar lo de alert y
-									// probada y trabajar con este enum de
-									// momentio se queda asi.
-	// Para acceder desde Javascript
+	// igual era bueno quitar lo de alert y
+	// probada y trabajar con este enum de
+	// momentio se queda asi.
+	private SuggestionState estado = SuggestionState.BuscandoApoyo;
+	
+	// Para acceder desde Javascript, es un poco rollo con el enumerado
 	private boolean aprobada;
 
 	@Column(name = "fecha_creacion")
@@ -56,9 +59,9 @@ public class Suggestion {
 	private Category category;
 	@ManyToOne
 	private Participant participant;
-	@OneToMany(mappedBy = "suggestion", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "suggestion", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<Comment> commentaries = new HashSet<Comment>();
-	@OneToMany(mappedBy = "suggestion")
+	@OneToMany(mappedBy = "suggestion", cascade = CascadeType.REMOVE)
 	private Set<VoteSuggestion> votesSuggestion = new HashSet<VoteSuggestion>();
 
 	public static final int DIAS_ABIERTA = 7;
@@ -87,7 +90,6 @@ public class Suggestion {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.fechaCreacion = Calendar.getInstance().getTime();
-		this.estado = SuggestionState.BuscandoApoyo;
 		this.votosMinimos = MIN_VOTOS_DEFECTO;
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.DATE, DIAS_ABIERTA); // Pone la fecha de finalización

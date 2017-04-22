@@ -9,6 +9,15 @@ eventSource.addEventListener("newSuggestion", function(event) {
 	row.insertCell(3).innerHTML = 0;
 });
 
+eventSource.addEventListener("deleteSuggestion", function(event) {
+	var obj = JSON.parse(event.data);
+	var row = $('a').filter(function() {
+					return $(this).text() === obj.suggestion;
+				}).closest('tr').index();
+  	
+	document.getElementById("sugerencias").deleteRow(row);
+});
+
 eventSource.addEventListener("alertSuggestion", function(event) {
 	var obj = JSON.parse(event.data);
 	

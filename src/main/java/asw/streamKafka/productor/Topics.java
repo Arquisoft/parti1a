@@ -2,6 +2,7 @@ package asw.streamKafka.productor;
 
 public class Topics {
 	public final static String NEW_SUGGESTION = "newSuggestion";
+	public final static String DELETE_SUGGESTION = "deleteSuggestion";
 	public final static String ALERT_SUGGESTION = "alertSuggestion";
 	public final static String NEW_COMMENT = "newComment";
 	public final static String POSITIVE_COMMENT = "positiveComment";

@@ -76,6 +76,16 @@
 			
 			window.chartBar.update();
 		});
+		
+		eventSource.addEventListener("deleteSuggestion", function(event) {
+			var suggestion = JSON.parse(event.data).suggestion;
+			var index = barChartData.labels.indexOf(suggestion);
+			
+			barChartData.datasets[0].data.splice(index, 1);
+			barChartData.labels.splice(index, 1);
+			
+			window.chartBar.update();
+		});
 		/*]]>*/
 	</script>
  	

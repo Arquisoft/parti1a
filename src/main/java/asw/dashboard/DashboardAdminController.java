@@ -57,6 +57,15 @@ public class DashboardAdminController {
 		SseEventBuilder event = SseEmitter.event().name("newSuggestion").data(data);
 		sendData(event);
 	}
+	
+	@RequestMapping(value = "/deleteSuggestion")
+	@KafkaListener(topics = Topics.DELETE_SUGGESTION)
+	public void deleteSuggestion(String data) {
+		SseEventBuilder event = SseEmitter.event().name("deleteSuggestion").data(data);
+		sendData(event);
+		
+		Application.logger.info("Enviado evento sugerencia eliminada");
+	}
 
 	@RequestMapping(value = "/alertSuggestion")
 	@KafkaListener(topics = Topics.ALERT_SUGGESTION)
