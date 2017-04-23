@@ -20,7 +20,7 @@ import asw.dbManagement.model.Comment;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
 import asw.dbManagement.model.Word;
-import asw.participationSystem.reportwriter.kafka.KafkaProducer;
+import asw.streamKafka.productor.KafkaProducer;
 
 @Controller
 public class CommentController {

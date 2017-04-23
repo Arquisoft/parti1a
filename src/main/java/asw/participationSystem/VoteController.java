@@ -12,7 +12,7 @@ import asw.dbManagement.ParticipantService;
 import asw.dbManagement.SuggestionService;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
-import asw.participationSystem.reportwriter.kafka.KafkaProducer;
+import asw.streamKafka.productor.KafkaProducer;
 
 @Controller
 public class VoteController {

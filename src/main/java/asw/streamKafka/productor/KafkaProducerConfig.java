@@ -15,7 +15,7 @@ import org.springframework.kafka.core.ProducerFactory;
 @Configuration
 @EnableKafka
 public class KafkaProducerConfig {
-	
+
 	// PRODUCTOR DE PRUEBA
 
 	@Bean
@@ -25,12 +25,12 @@ public class KafkaProducerConfig {
 
 	@Bean
 	public ProducerFactory<String, String> producerFactory() {
-		return new DefaultKafkaProducerFactory<>(producerConfigs());
+		return new DefaultKafkaProducerFactory<String, String>(producerConfigs());
 	}
 
 	@Bean
 	public Map<String, Object> producerConfigs() {
-		Map<String, Object> props = new HashMap<>();
+		Map<String, Object> props = new HashMap<String, Object>();
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 		props.put(ProducerConfig.RETRIES_CONFIG, 0);
 		props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);

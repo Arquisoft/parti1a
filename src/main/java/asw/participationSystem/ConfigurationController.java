@@ -19,7 +19,8 @@ import asw.dbManagement.model.Category;
 import asw.dbManagement.model.Suggestion;
 import asw.dbManagement.model.Word;
 import asw.dbManagement.model.types.SuggestionState;
-import asw.participationSystem.reportwriter.kafka.KafkaProducer;
+import asw.streamKafka.productor.KafkaProducer;
+import asw.streamKafka.productor.Topics;
 
 
 
@@ -120,7 +121,7 @@ public class ConfigurationController {
 			HttpSession session, Model model) {
 		Suggestion.DIAS_ABIERTA = dias;
 		// Enviar aviso a kafka
-		kafka.send(KafkaProducer.DAYS_OPEN, "Dias abierta -> " + dias);
+		kafka.send(Topics.DAYS_OPEN, "Dias abierta -> " + dias);
 		return "redirect:/parameters";
 	}
 
