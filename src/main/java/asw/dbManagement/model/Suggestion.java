@@ -64,7 +64,7 @@ public class Suggestion {
 	@OneToMany(mappedBy = "suggestion", cascade = CascadeType.REMOVE)
 	private Set<VoteSuggestion> votesSuggestion = new HashSet<VoteSuggestion>();
 
-	public static final int DIAS_ABIERTA = 7;
+	public static int DIAS_ABIERTA = 7;
 	public static final int MIN_VOTOS_DEFECTO = 100;
 
 	Suggestion() {
