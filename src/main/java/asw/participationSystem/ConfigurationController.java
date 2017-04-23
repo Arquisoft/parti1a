@@ -22,8 +22,6 @@ import asw.dbManagement.model.types.SuggestionState;
 import asw.streamKafka.productor.KafkaProducer;
 import asw.streamKafka.productor.Topics;
 
-
-
 @Controller
 public class ConfigurationController {
 
@@ -72,10 +70,9 @@ public class ConfigurationController {
 	}
 
 	@RequestMapping("/find")
-	public String findSuggestion(@RequestParam("suggestion_name") String title,
-			HttpSession session, Model model) {
-		List<Suggestion> suggestions = suggestionService
-				.getSuggestionByTitle(title);
+	public String findSuggestion(@RequestParam("suggestion_name") String title, HttpSession session,
+			Model model) {
+		List<Suggestion> suggestions = suggestionService.getSuggestionByTitle(title);
 		model.addAttribute("suggestions", suggestions);
 		return "config";
 	}
@@ -97,18 +94,17 @@ public class ConfigurationController {
 
 	// TODO No funciona, ya lo arreglare si al final permitimos edicion
 	@RequestMapping("/save")
-	public String saveSuggestion(@RequestParam("sugerencia") Long id,
-			HttpSession session, Model model) {
-		suggestionService.saveSuggestion((Suggestion) session
-				.getAttribute("sugerencia"));
+	public String saveSuggestion(@RequestParam("sugerencia") Long id, HttpSession session,
+			Model model) {
+		Suggestion s = (Suggestion) session.getAttribute("sugerencia");
+		suggestionService.saveSuggestion(s);
 		// Enviar aviso a kafka
-		kafka.sendNewSuggestion(id);
+		kafka.sendNewSuggestion(id, s.getTitulo());
 		return "redirect:/config";
 	}
 
 	@RequestMapping("/delete")
-	public String deleteSuggestion(@RequestParam("sugerencia") Long id,
-			Model model) {
+	public String deleteSuggestion(@RequestParam("sugerencia") Long id, Model model) {
 		Suggestion s = suggestionService.getSuggestionById(id);
 		suggestionService.deleteSuggestion(s);
 		// Enviar aviso a kafka
@@ -117,8 +113,8 @@ public class ConfigurationController {
 	}
 
 	@RequestMapping("/days")
-	public String setDays(@RequestParam("suggestion_duration") int dias,
-			HttpSession session, Model model) {
+	public String setDays(@RequestParam("suggestion_duration") int dias, HttpSession session,
+			Model model) {
 		Suggestion.DIAS_ABIERTA = dias;
 		// Enviar aviso a kafka
 		kafka.send(Topics.DAYS_OPEN, "Dias abierta -> " + dias);
@@ -126,8 +122,8 @@ public class ConfigurationController {
 	}
 
 	@RequestMapping("/addCategories")
-	public ModelAndView addCategory(@RequestParam("acategory") String nombre,
-			HttpSession session, Model model) {
+	public ModelAndView addCategory(@RequestParam("acategory") String nombre, HttpSession session,
+			Model model) {
 		Category category = categoryService.getCategoryByName(nombre);
 
 		ModelAndView mav = new ModelAndView();
@@ -151,9 +147,8 @@ public class ConfigurationController {
 	}
 
 	@RequestMapping("/removeCategories")
-	public ModelAndView removeCategory(
-			@RequestParam("rmcategory") String nombre, HttpSession session,
-			Model model) {
+	public ModelAndView removeCategory(@RequestParam("rmcategory") String nombre,
+			HttpSession session, Model model) {
 		Category category = categoryService.getCategoryByName(nombre);
 
 		ModelAndView mav = new ModelAndView();
@@ -166,8 +161,8 @@ public class ConfigurationController {
 			mav.addObject("mensaje", "Category " + nombre + " has been removed");
 			kafka.sendDeleteCategory(catId);
 		} else
-			mav.addObject("mensaje", "Category " + nombre
-					+ " doesn't exist or there are suggestion in it");
+			mav.addObject("mensaje",
+					"Category " + nombre + " doesn't exist or there are suggestion in it");
 		// model.addAttribute("mensaje", "Category " + nombre
 		// + " doesn't exist or there are suggestion in it");
 		// Enviar aviso a kafka
@@ -181,11 +176,9 @@ public class ConfigurationController {
 		if (word == null) {
 			Word w = new Word(word2a);
 			wordService.saveWord(w);
-			model.addAttribute("mensaje", "Non-permitted word " + word2a
-					+ " has been added");
+			model.addAttribute("mensaje", "Non-permitted word " + word2a + " has been added");
 		} else {
-			model.addAttribute("mensaje", "Non-permitted word " + word2a
-					+ " already exist");
+			model.addAttribute("mensaje", "Non-permitted word " + word2a + " already exist");
 		}
 		return "parameters";
 	}
@@ -195,18 +188,15 @@ public class ConfigurationController {
 		Word word = wordService.getWordByName(word2r);
 		if (word != null) {
 			wordService.deleteWord(word);
-			model.addAttribute("mensaje", "Non-permitted word " + word2r
-					+ " has been removed");
+			model.addAttribute("mensaje", "Non-permitted word " + word2r + " has been removed");
 		} else {
-			model.addAttribute("mensaje", "Non-permitted word " + word2r
-					+ " doesn't exist");
+			model.addAttribute("mensaje", "Non-permitted word " + word2r + " doesn't exist");
 		}
 		return "parameters";
 	}
 
 	@RequestMapping("/rejectSuggestion")
-	public String rejectSuggestion(@RequestParam("idPropuesta") Long id,
-			Model model) {
+	public String rejectSuggestion(@RequestParam("idPropuesta") Long id, Model model) {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
 		suggestion.setEstado(SuggestionState.Rechazada);
 		suggestionService.saveSuggestion(suggestion);

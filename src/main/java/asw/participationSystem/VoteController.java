@@ -35,8 +35,10 @@ public class VoteController {
 			// Enviar aviso a kafka
 			kafka.sendPositiveSuggestion(id);
 			Suggestion s = suggestionService.getSuggestionById(id);
+			
+			// Enviar alerta
 			if (s.getVotosPositivos() == s.getVotosMinimos())
-				kafka.sendMinVotesReached(id);
+				kafka.sendAlertSuggestion(id);
 		}
 		return "redirect:/index";
 	}

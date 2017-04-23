@@ -16,7 +16,7 @@ import org.springframework.kafka.core.ProducerFactory;
 @EnableKafka
 public class KafkaProducerConfig {
 
-	// PRODUCTOR DE PRUEBA
+	// CONFIGURACION PRODUCTOR DE MENSAJES
 
 	@Bean
 	public KafkaTemplate<String, String> kafkaTemplate() {

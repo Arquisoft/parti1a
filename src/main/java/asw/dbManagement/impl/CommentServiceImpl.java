@@ -40,4 +40,9 @@ public class CommentServiceImpl implements CommentService {
 	public Comment saveComment(Comment comment) {
 		return repository.save(comment);
 	}
+
+	@Override
+	public Comment findCommentById(long id) {
+		return repository.findOne(id);
+	}
 }

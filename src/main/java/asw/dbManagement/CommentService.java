@@ -17,4 +17,5 @@ public interface CommentService {
 
 	Comment saveComment(Comment comment);
 
+	Comment findCommentById(long id);
 }

@@ -9,14 +9,11 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import javax.annotation.ManagedBean;
 
-/**
- * 
- */
 @ManagedBean
 public class KafkaProducer {
 
 	private static final Logger logger = Logger.getLogger(KafkaProducer.class);
-	
+
 	private KafkaTemplate<String, String> kafkaTemplate;
 
 	@Autowired
@@ -24,33 +21,43 @@ public class KafkaProducer {
 		this.kafkaTemplate = kafkaTemplate;
 	}
 
-	// SENDS
-	public void sendNewSuggestion(long suggestionId) {
-		send(Topics.NEW_SUGGESTION, "Creada la propuesta -> " + suggestionId);
-	}
-
-	public void sendNewComment(long commentId) {
-		send(Topics.NEW_COMMENT, "Creado el comentario -> " + commentId);
-	}
-
-	public void sendPositiveComment(long commentId) {
-		send(Topics.POSITIVE_COMMENT, "Voto positivo en el comentario -> " + commentId);
-	}
-
-	public void sendNegativeComment(long commentId) {
-		send(Topics.NEGATIVE_COMMENT, "Voto negativo en el comentario -> " + commentId);
-	}
-
-	public void sendPositiveSuggestion(long suggestionId) {
-		send(Topics.POSITIVE_SUGGESTION, "Apoyo a la propuesta -> " + suggestionId);
-	}
-
-	public void sendMinVotesReached(long suggestionId) {
-		send(Topics.MIN_VOTES_REACHED, "Se ha alcanzado el mínimo de votos -> " + suggestionId);
+	// Sugerencias
+	public void sendNewSuggestion(long suggestionId, String title) {
+		send(Topics.NEW_SUGGESTION,
+				"{ \"suggestion\":\"" + suggestionId + "\", \"title\":\"" + title + "\"}");
 	}
 
 	public void sendDeleteSuggestion(long suggestionId) {
-		send(Topics.DELETE_SUGGESTION, "Borrada la propuesta -> " + suggestionId);
+		send(Topics.DELETE_SUGGESTION, "{ \"suggestion\":\"" + suggestionId + "\" }");
+	}
+
+	public void sendPositiveSuggestion(long suggestionId) {
+		send(Topics.POSITIVE_SUGGESTION, "{ \"suggestion\":\"" + suggestionId + "\"}");
+	}
+	
+	public void sendAlertSuggestion(long suggestionId) {
+		send(Topics.ALERT_SUGGESTION, "{ \"suggestion\":\"" + suggestionId + "\"}");
+	}
+
+	// Comentarios
+	public void sendNewComment(long commentId, long suggestionId) {
+		send(Topics.NEW_COMMENT,
+				"{ \"comment\":\"" + commentId + "\", \"suggestion\":\"" + suggestionId + "\"}");
+	}
+
+	public void sendPositiveComment(long commentId, long suggestionId) {
+		send(Topics.POSITIVE_COMMENT,
+				"{ \"comment\":\"" + commentId + "\", \"suggestion\":\"" + suggestionId + "\"}");
+	}
+
+	public void sendNegativeComment(long commentId, long suggestionId) {
+		send(Topics.NEGATIVE_COMMENT,
+				"{ \"comment\":\"" + commentId + "\", \"suggestion\":\"" + suggestionId + "\"}");
+	}
+
+	// Otras (no las usamos en el dashboard)
+	public void sendMinVotesReached(long suggestionId) {
+		send(Topics.MIN_VOTES_REACHED, "Se ha alcanzado el mínimo de votos -> " + suggestionId);
 	}
 
 	public void sendNewCategory(long catId) {
@@ -75,7 +82,8 @@ public class KafkaProducer {
 
 			@Override
 			public void onFailure(Throwable ex) {
-				logger.error("Error on sending message \"" + data + "\", stacktrace " + ex.getMessage());
+				logger.error(
+						"Error on sending message \"" + data + "\", stacktrace " + ex.getMessage());
 			}
 		});
 	}

@@ -62,7 +62,8 @@ public class CommentController {
 			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
 		else {
 			model.addAttribute("mensaje", "Ha votado like a este comentario");
-			kafka.sendPositiveComment(id);
+			long suggestionId = commentService.findCommentById(id).getSuggestion().getId();
+			kafka.sendPositiveComment(id, suggestionId);
 		}
 		return "redirect:/listComments";
 	}
@@ -73,7 +74,8 @@ public class CommentController {
 			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
 		else {
 			model.addAttribute("mensaje", "Ha votado dislike a este comentario");
-			kafka.sendNegativeComment(id);
+			long suggestionId = commentService.findCommentById(id).getSuggestion().getId();
+			kafka.sendNegativeComment(id, suggestionId);
 		}
 		return "redirect:/listComments";
 	}
@@ -94,7 +96,7 @@ public class CommentController {
 			Participant p = (Participant) session.getAttribute("usuario");
 			Suggestion s = suggestionService.getSuggestionById((Long) session.getAttribute("idSuggestion"));
 			Comment c = commentService.saveComment(new Comment(identificador,comment, p, s));
-			kafka.sendNewComment(c.getId());
+			kafka.sendNewComment(c.getId(), s.getId());
 
 		}
 		return "redirect:/listComments";

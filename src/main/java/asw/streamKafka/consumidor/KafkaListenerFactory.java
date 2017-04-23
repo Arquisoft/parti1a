@@ -20,7 +20,7 @@ import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 public class KafkaListenerFactory {
 	public static JacksonJsonParser parser = new JacksonJsonParser();
 
-	// CONSUMIDOR DE MENSAJES
+	// CONFIGURACION CONSUMIDOR DE MENSAJES
 	
 	@Bean
 	KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> kafkaListenerContainerFactory() {
