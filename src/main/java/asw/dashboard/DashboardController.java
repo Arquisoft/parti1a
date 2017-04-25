@@ -21,12 +21,12 @@ import asw.dbManagement.repository.SuggestionRepository;
 import asw.streamKafka.productor.Topics;
 
 @Controller
-public class DashboardAdminController {
+public class DashboardController {
 	@Autowired
 	private SuggestionRepository suggestionRepository;
 	private List<SseEmitter> sseEmitters = Collections.synchronizedList(new ArrayList<>());
 
-	// Inicio del dashboardAdmin que muestra las sugerencias
+	// Inicio del dashboard que muestra las sugerencias
 	@RequestMapping("/dashboardAdmin")
 	public String showSuggestions(Model model) {
 		model.addAttribute("allSuggestions", suggestionRepository.findAll());

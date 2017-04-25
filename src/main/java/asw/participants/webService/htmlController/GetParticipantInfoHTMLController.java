@@ -42,19 +42,30 @@ public class GetParticipantInfoHTMLController {
 		Assert.isParticipantNull(participant);
 		Assert.isPasswordCorrect(password, participant);
 
-		session.setAttribute("participant", participant);
-
+		session.setAttribute("usuario", participant);
+		
 		if (!participant.isAdmin() && !participant.isPolitician()) {
-			session.setAttribute("edad", Utilidades.getEdad(participant.getFechaNacimiento()));
-			return "datosParticipant";
+			return "redirect:/index";
 		} else {
 			if (participant.isAdmin())
+				// TODO return config; -> lo de participationSystem
 				return "redirect:/dashboardAdmin";
-			// TODO dashboard de politicos
 			else
-				return "redirect:/dashboardPolitician";
+				// TODO dashboard
+				return "redirect:/dashboardAdmin";
 		}
-
+	}
+	
+	/**
+	 * Para ver los datos del usuario logeado
+	 * @param session
+	 * @return 
+	 */
+	@RequestMapping(value = "/profile")
+	public String getProfile(HttpSession session){
+		Participant participant = (Participant) session.getAttribute("usuario");
+		session.setAttribute("edad", Utilidades.getEdad(participant.getFechaNacimiento()));
+		return "datosParticipant";
 	}
 
 	@ExceptionHandler(ErrorResponse.class)

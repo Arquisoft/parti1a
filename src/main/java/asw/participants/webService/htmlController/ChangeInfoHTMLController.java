@@ -35,7 +35,7 @@ public class ChangeInfoHTMLController {
 		Assert.isSamePassword(password, newPassword);
 
 		// Participant que se ha logeado antes
-		Participant p = (Participant) session.getAttribute("participant");
+		Participant p = (Participant) session.getAttribute("usuario");
 		Assert.isParticipantNull(p);
 		Assert.isPasswordCorrect(password, p);
 
