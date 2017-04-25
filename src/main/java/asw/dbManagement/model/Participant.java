@@ -37,9 +37,9 @@ public class Participant {
 	private boolean isAdmin;
 	private boolean isPolitician;
 
-	@OneToMany(mappedBy = "participant", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "participant", fetch = FetchType.EAGER)
 	private Set<Suggestion> suggestions = new HashSet<Suggestion>();
-	@OneToMany(mappedBy = "participant", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "participant", fetch = FetchType.EAGER)
 	private Set<Comment> commentaries = new HashSet<Comment>();
 	@OneToMany(mappedBy = "participant")
 	private Set<VoteSuggestion> votesSuggestion = new HashSet<VoteSuggestion>();
@@ -51,8 +51,8 @@ public class Participant {
 	 */
 	Participant() {
 	}
-	
-	public Participant(String dni){
+
+	public Participant(String dni) {
 		super();
 		this.DNI = dni;
 	}
@@ -74,9 +74,13 @@ public class Participant {
 		this(dni);
 		this.nombre = nombre;
 		this.apellidos = apellidos;
+		if (password.equals(""))
+			generarPassword();
+		else
+			this.password = password;
 		this.password = password;
 		this.fechaNacimiento = fechaNacimiento;
-		this.email = email;		
+		this.email = email;
 		this.direccion = direccion;
 		this.nacionalidad = nacionalidad;
 		this.isAdmin = isAdmin;
@@ -166,13 +170,28 @@ public class Participant {
 	protected Set<VoteSuggestion> _getVotesSuggestion() {
 		return votesSuggestion;
 	}
-	
+
 	public Set<VoteComment> getVotesCommentary() {
 		return new HashSet<VoteComment>(votesCommentaries);
 	}
 
 	protected Set<VoteComment> _getVotesCommentary() {
 		return votesCommentaries;
+	}
+
+	private void generarPassword() {
+		StringBuffer pass = new StringBuffer();
+		int low = 65;
+		int top = 90;
+		for (int i = 0; i < 9; i++) {
+			int numAleatorio = (int) Math.floor(Math.random() * (top - low) + low);
+			pass.append((char) numAleatorio);
+		}
+		for (int i = 0; i < 3; i++) {
+			int numAleatorio = (int) Math.floor(Math.random() * (9 - 0) + 0);
+			pass.append(numAleatorio);
+		}
+		setPassword(pass.toString());
 	}
 
 	@Override
