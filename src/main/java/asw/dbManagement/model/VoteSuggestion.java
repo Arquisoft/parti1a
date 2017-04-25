@@ -1,6 +1,8 @@
 package asw.dbManagement.model;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -24,6 +26,8 @@ public class VoteSuggestion {
 	@ManyToOne
 	@JoinColumn(name = "SUGGESTION_ID", referencedColumnName = "ID")
 	private Suggestion suggestion;
+	
+	@Enumerated(EnumType.STRING)
 	private VoteType voteType;
 
 	VoteSuggestion() {

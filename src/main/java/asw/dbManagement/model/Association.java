@@ -14,6 +14,19 @@ public class Association {
 			suggestion._setParticipant(null);
 		}
 	}
+	
+	public static class Pertenecer {
+
+		public static void link(Category category, Suggestion suggestion) {
+			suggestion._setCategory(category);
+			category._getSuggestions().add(suggestion);
+		}
+
+		public static void unlink(Category category, Suggestion suggestion) {
+			category._getSuggestions().remove(suggestion);
+			suggestion._setCategory(null);
+		}
+	}
 
 	public static class Comentar {
 
