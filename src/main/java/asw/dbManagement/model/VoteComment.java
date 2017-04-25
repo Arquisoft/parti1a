@@ -24,7 +24,7 @@ public class VoteComment {
 
 	@Id
 	@ManyToOne
-	@JoinColumn(name = "COMMENTARY_ID", referencedColumnName = "ID")
+	@JoinColumn(name = "COMMENT_ID", referencedColumnName = "ID")
 	private Comment comment;
 	
 	@Enumerated(EnumType.STRING)

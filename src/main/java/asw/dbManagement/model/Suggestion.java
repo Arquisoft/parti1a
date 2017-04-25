@@ -59,6 +59,7 @@ public class Suggestion {
 	private Category category;
 	@ManyToOne
 	private Participant participant;
+	
 	@OneToMany(mappedBy = "suggestion", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<Comment> commentaries = new HashSet<Comment>();
 	@OneToMany(mappedBy = "suggestion", cascade = CascadeType.REMOVE)
@@ -81,6 +82,7 @@ public class Suggestion {
 		this.titulo = titulo;
 		this.descripcion = descripcion;
 		this.votosMinimos = MIN_VOTOS_DEFECTO;
+		
 		Association.Proponer.link(participant, this);
 	}
 
@@ -95,9 +97,9 @@ public class Suggestion {
 		c.add(Calendar.DATE, DIAS_ABIERTA); // Pone la fecha de finalización
 											// DIAS_ABIERTA mas tarde
 		this.fechaFin = c.getTime();
-		this.category = category;// esto esta como la mierda tendria que ir en
-									// el link.
-		Association.Proponer.link(participant, this);
+		
+		Association.Pertenecer.link(category, this);
+		Association.Proponer.link(creator, this);
 	}
 
 	public Suggestion(String identificador, String titulo, String descripcion, int votosMinimos,
@@ -181,7 +183,7 @@ public class Suggestion {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	protected void _setCategory(Category category) {
 		this.category = category;
 	}
 
