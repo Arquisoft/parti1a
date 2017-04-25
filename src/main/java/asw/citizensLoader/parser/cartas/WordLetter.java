@@ -12,15 +12,15 @@ import com.lowagie.text.DocumentException;
 
 import asw.dbManagement.model.Participant;
 
-public class WordLetter extends Letter{
+public class WordLetter extends Letter {
 	private FileOutputStream carta;
-	
+
 	public void createLetter(Participant user) throws FileNotFoundException, DocumentException, IOException {
 		XWPFDocument documento = new XWPFDocument();
-		File folder = new File("carta/word");
-		folder.mkdir();
-		carta = new FileOutputStream(
-				"cartas/word/" + user.getDNI() + ".docx");
+		File folder = new File("cartas/word");
+		if (!folder.exists())
+			folder.mkdirs();
+		carta = new FileOutputStream("cartas/word/" + user.getDNI() + ".docx");
 		XWPFParagraph paragraph = documento.createParagraph();
 		XWPFRun run = paragraph.createRun();
 		run.setText("Usuario: " + user.getEmail());

@@ -7,14 +7,15 @@ import java.io.Writer;
 
 import asw.dbManagement.model.Participant;
 
-
-public class TxtLetter extends Letter{
+public class TxtLetter extends Letter {
 	private Writer writer;
 
-	public void createLetter(Participant user) throws IOException{
+	public void createLetter(Participant user) throws IOException {
+		File folder = new File("cartas/txt");
+		if (!folder.exists())
+			folder.mkdirs();
 		File letter = new File("cartas/txt/" + user.getDNI() + ".txt");
 		writer = new FileWriter(letter);
-		writer.write("Usuario: " + user.getEmail() + "\n" + "Password: "
-				+ user.getPassword());
+		writer.write("Usuario: " + user.getEmail() + "\n" + "Password: " + user.getPassword());
 	}
 }

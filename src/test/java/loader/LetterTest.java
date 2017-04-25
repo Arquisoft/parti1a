@@ -39,6 +39,7 @@ public class LetterTest {
 		file = new File("cartas/txt/87654321P.txt");
 		assertTrue(file.exists());
 		file.delete();
+		
 	}
 	
 }

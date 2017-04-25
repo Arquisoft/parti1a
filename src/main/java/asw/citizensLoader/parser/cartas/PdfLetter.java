@@ -1,5 +1,6 @@
 package asw.citizensLoader.parser.cartas;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
@@ -10,19 +11,20 @@ import com.lowagie.text.pdf.PdfWriter;
 
 import asw.dbManagement.model.Participant;
 
-
-public class PdfLetter extends Letter{
+public class PdfLetter extends Letter {
 	private Document document;
-	public  void createLetter(Participant user) throws DocumentException, FileNotFoundException{
+
+	public void createLetter(Participant user) throws DocumentException, FileNotFoundException {
 		document = null;
 		FileOutputStream letter = null;
-		letter = new FileOutputStream(
-				"cartas/pdf/" + user.getDNI() + ".pdf");
+		File folder = new File("cartas/pdf");
+		if (!folder.exists())
+			folder.mkdirs();
+		letter = new FileOutputStream("cartas/pdf/" + user.getDNI() + ".pdf");
 		document = new Document();
 		PdfWriter.getInstance(document, letter);
 		document.open();
-		document.add(new Paragraph("Usuario: " + user.getEmail()
-				+ "\n Password: " + user.getPassword()));
+		document.add(new Paragraph("Usuario: " + user.getEmail() + "\n Password: " + user.getPassword()));
 		document.close();
 	}
 }

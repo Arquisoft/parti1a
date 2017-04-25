@@ -57,11 +57,6 @@ public class UserTest {
 		Participant user1 = new Participant("Dani", "Duque", "", date, "email@gmail.com", "7777777R", "C\\Buenavida",
 				"Español", false, false);
 
-		String password = user1.getPassword();
-		String userName = user1.getEmail();
-		String toString = "User [id =null, nombre=Dani, apellidos=Duque, email=email@gmail.com, fechaNacimiento=" + date
-				+ ", direccionPostal=C\\Buenavida, nacionalidad=Español, DNI=7777777R]";
-
 		assertEquals("Dani", user1.getNombre());
 		assertEquals("Duque", user1.getApellidos());
 		assertEquals("email@gmail.com", user1.getEmail());
@@ -69,9 +64,8 @@ public class UserTest {
 		assertEquals("C\\Buenavida", user1.getDireccion());
 		assertEquals("Español", user1.getNacionalidad());
 		assertEquals("7777777R", user1.getDNI());
-		assertEquals(password, user1.getPassword());
-		assertEquals(userName, user1.getEmail());
-		assertEquals(toString, user1.toString());
+		assertEquals(false, user1.isAdmin());
+		assertEquals(false, user1.isPolitician());
 	}
 
 }
