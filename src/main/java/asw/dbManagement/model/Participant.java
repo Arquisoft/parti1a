@@ -74,11 +74,10 @@ public class Participant {
 		this(dni);
 		this.nombre = nombre;
 		this.apellidos = apellidos;
-		if (password.equals(""))
+		if (password.isEmpty())
 			generarPassword();
 		else
 			this.password = password;
-		this.password = password;
 		this.fechaNacimiento = fechaNacimiento;
 		this.email = email;
 		this.direccion = direccion;

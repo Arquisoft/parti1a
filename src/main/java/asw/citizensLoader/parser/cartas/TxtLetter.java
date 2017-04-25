@@ -16,6 +16,7 @@ public class TxtLetter extends Letter {
 			folder.mkdirs();
 		File letter = new File("cartas/txt/" + user.getDNI() + ".txt");
 		writer = new FileWriter(letter);
-		writer.write("Usuario: " + user.getEmail() + "\n" + "Password: " + user.getPassword());
+		writer.write("Usuario: " + user.getEmail() + "\n Password: " + user.getPassword());
+		writer.close();
 	}
 }
