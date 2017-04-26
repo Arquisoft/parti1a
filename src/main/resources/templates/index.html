@@ -1,36 +1,73 @@
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Portal de usuario</title>
-<meta charset="utf-8" />
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<title>Portal de usuario</title>
+	
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}"/>
 </head>
 <body>
-	<h1>Propuestas activas</h1>
-	<p th:text="${mensaje}" />
-	<table id="tablaPropuestas" border="1">
-		<thead>
-			<tr>
-				<th>Titulo</th>
-				<th>Descripcion</th>
-				<th>Categoria</th>
-				<th>Popularidad</th>
-				<th>Apoyar</th>
-				<th>Comentarios</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="iter : ${sugerencias}">
-				<td th:text="${iter.titulo}">Titulo</td>
-				<td th:text="${iter.descripcion}">Descripcion</td>
-				<td th:text="${iter.category.name}">Categoria</td>
-				<td th:text="${iter.popularidad}">Popularidad</td>
-				<td><a id="apoyar${iter.id}"
-					th:href="@{/support(sugerencia=${iter.id})}">Apoyar propuesta</a></td>
-				<td><a id="comentarios${iter.id}"
-					th:href="@{/comments(sugerencia=${iter.id})}">Ver Comentarios</a></td>
-			</tr>
-		</tbody>
-	</table>
-	<br />
-	<a th:href="createSuggestion.html">Crear una propuesta</a>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Inicio</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="profile">Profile</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+	<div class="container-fluid">
+		<h1 class="page-header">Propuestas activas</h1>
+		<p th:text="${mensaje}" />
+		
+		<div class="table-responsive">
+			<table id="tablaPropuestas" class="table table-striped">
+				<thead>
+					<tr>
+						<th>Titulo</th>
+						<th>Descripcion</th>
+						<th>Categoria</th>
+						<th>Popularidad</th>
+						<th>Apoyar</th>
+						<th>Comentarios</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="iter : ${sugerencias}">
+						<td th:text="${iter.titulo}">Titulo</td>
+						<td th:text="${iter.descripcion}">Descripcion</td>
+						<td th:text="${iter.category.name}">Categoria</td>
+						<td th:text="${iter.popularidad}">Popularidad</td>
+						<td><a id="apoyar${iter.id}"
+							th:href="@{/support(sugerencia=${iter.id})}">Apoyar propuesta</a></td>
+						<td><a id="comentarios${iter.id}"
+							th:href="@{/comments(sugerencia=${iter.id})}">Ver Comentarios</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<br />
+		<a th:href="createSuggestion.html">Crear una propuesta</a>
+	</div>
 </body>
 </html>

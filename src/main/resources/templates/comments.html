@@ -1,50 +1,92 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<title>Portal de usuario</title>
-<meta charset="utf-8" />
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<title>Portal de usuario</title>
+	
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}"/>
 </head>
 <body>
-	<h1>Comentarios de la propuesta</h1>
-	<p th:text="${mensaje}" />
-	<table id="tablaComentarios" border="1">
-		<thead>
-			<tr>
-				<th>Texto</th>
-				<th>Votos positivos</th>
-				<th>Votos negativos</th>
-				<th>Valoracion</th>
-				<th>Participante</th>
-				<th>Fecha</th>
-				<th>Votar positivo</th>
-				<th>Votar negativo</th>
-			</tr>
-		</thead>
-		<tbody id="comments">
-			<tr th:each="iter : ${comentarios}">
-				<td th:text="${iter.texto}">Texto</td>
-				<td th:text="${iter.votosPositivos}">Votos positivos</td>
-				<td th:text="${iter.votosNegativos}">Votos negativos</td>
-				<td th:text="${iter.valoracion}">Valoracion</td>
-				<td th:text="${iter.participant.email}">Participante</td>
-				<td th:text="${iter.fechaCreacion}">Fecha</td>
-				<td><a id="positivo${iter.id}"
-					th:href="@{/votarPositivo(comentario=${iter.id})}">Votar
-						positivo</a></td>
-				<td><a id="negativo${iter.id}"
-					th:href="@{/votarNegativo(comentario=${iter.id})}">Votar
-						negativo</a></td>
-			</tr>
-		</tbody>
-	</table>
-	<br />
-	<br />
-	<form method="POST" action="comment">
-		<p>Comente aquí</p>
-		<textarea id="comment" name="comment" rows="4" cols="50"
-			style="resize: none;" placeholder="Añada su comentario"></textarea>
-		<br />
-		<button type="submit" id="login">Comentar</button>
-	</form>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index">Inicio</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="profile">Profile</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	
+	<div class="container-fluid">
+		<h1 class="page-header">Comentarios de la propuesta</h1>
+		<p th:text="${mensaje}" />
+		
+		<div class="table-responsive">
+			<table class="table table-striped" id="tablaComentarios">
+				<thead>
+					<tr>
+						<th>Texto</th>
+						<th>Votos positivos</th>
+						<th>Votos negativos</th>
+						<th>Valoracion</th>
+						<th>Participante</th>
+						<th>Fecha</th>
+						<th>Votar positivo</th>
+						<th>Votar negativo</th>
+					</tr>
+				</thead>
+				<tbody id="comments">
+					<tr th:each="iter : ${comentarios}">
+						<td th:text="${iter.texto}">Texto</td>
+						<td th:text="${iter.votosPositivos}">Votos positivos</td>
+						<td th:text="${iter.votosNegativos}">Votos negativos</td>
+						<td th:text="${iter.valoracion}">Valoracion</td>
+						<td th:text="${iter.participant.email}">Participante</td>
+						<td th:text="${iter.fechaCreacion}">Fecha</td>
+						<td><a id="positivo${iter.id}"
+							th:href="@{/votarPositivo(comentario=${iter.id})}">Votar
+								positivo</a></td>
+						<td><a id="negativo${iter.id}"
+							th:href="@{/votarNegativo(comentario=${iter.id})}">Votar
+								negativo</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<form method="POST" action="comment" class="form-horizontal">
+			<div class="form-group">
+				<label for="comment" class="control-label col-sm-2">Comente aquí</label>
+				<div class="col-sm-8">
+					<textarea id="comment" name="comment" rows="4" cols="50" style="resize: none;" placeholder="Añada su comentario" class="form-control"></textarea>
+				</div>
+			</div>
+
+			<div class="form-group"> 
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" id="login" class="btn btn-default">Comentar</button>
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

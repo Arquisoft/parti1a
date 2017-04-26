@@ -21,9 +21,4 @@ public class Application {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
     
-//    @Bean
-//	public CommandLineRunner initParticipantRepository(ParticipantRepository repository) throws ParseException {
-//    	return (args) -> { InitParticipantRepository.initDB(repository); };
-//    }
-    
 }

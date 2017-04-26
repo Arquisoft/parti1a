@@ -1,24 +1,76 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8" />
-<title>Portal del usuario</title>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<title>Portal de usuario</title>
+	
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	<link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}"/>
 </head>
 <body>
-	<h1>Crear propuesta</h1>
-	<form method="POST" action="create">
-		<p th:text="${mensaje}" />
-		<ul>
-			<li><p>Titulo de la propuesta</p> <input type="text"
-				name="suggestion_title" /></li>
-			<li><p>Descripción de la propuesta</p> <input type="text"
-				name="suggestion_description" /></li>
-			<li><p>Categoria de la propuesta</p> <select name="categoria">
-					<option th:each="iter : ${categorias}" th:value="${iter.id}"
-						th:text="${iter.name}" />
-			</select></li>
-		</ul>
-		<br /> <input type="submit" name="crearPropuesta" value="Crear" />
-	</form>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index">Inicio</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="profile">Profile</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+	
+	<div class="container-fluid">
+		<h1 class="page-header">Crear propuesta</h1>
+		
+		<form method="POST" action="create" class="form-horizontal">
+			<p th:text="${mensaje}" />
+			
+			<div class="form-group">
+				<label for="suggestion_title" class="control-label col-sm-2"> Titulo:</label>
+				<div class="col-sm-4">
+					<input type="text" name="suggestion_title" id="suggestion_title" class="form-control"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="suggestion_description" class="control-label col-sm-2">Descripción:</label> 
+				<div class="col-sm-4">
+					<input type="text" name="suggestion_description" id="suggestion_description" class="form-control"/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="categoria" class="control-label col-sm-2">Categoria:</label>
+				<div class="col-sm-4">
+					<select name="categoria" class="form-control" id="categoria">
+						<option th:each="iter : ${categorias}" th:value="${iter.id}" th:text="${iter.name}" />
+					</select>
+				</div>
+			</div>
+			
+			<div class="form-group"> 
+				<div class="col-sm-offset-2 col-sm-10">
+					<input type="submit" name="crearPropuesta" value="Crear" class="btn btn-default"/>
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package cucumber.steps;
+package cucmber.steps;
 
 import static org.junit.Assert.assertTrue;
 
