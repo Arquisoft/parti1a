@@ -41,7 +41,7 @@ import asw.participants.webService.request.PeticionInfoREST;
 
 @SuppressWarnings("deprecation")
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes=Application.class, webEnvironment=WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes=Application.class, webEnvironment=WebEnvironment.RANDOM_PORT)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ParticipantTest {
 	@Value("${local.server.port}")

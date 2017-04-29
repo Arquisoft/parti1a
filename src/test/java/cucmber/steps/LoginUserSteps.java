@@ -1,5 +1,7 @@
 package cucmber.steps;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,23 +9,12 @@ import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationContextLoader;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import asw.Application;
 import cucumber.api.java.Before;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Dada;
 import cucumber.api.java.es.Entonces;
 
-import static org.junit.Assert.assertEquals;
-
-@SuppressWarnings("deprecation")
-@ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)
-@IntegrationTest
-@WebAppConfiguration
 public class LoginUserSteps {
 
 	private WebDriver driver= new HtmlUnitDriver();
@@ -67,9 +58,9 @@ public class LoginUserSteps {
 		
 		assertEquals(isJualo, true);
 
-		driver.findElement(By.id("email")).sendKeys(user);
-		driver.findElement(By.id("password")).sendKeys(pass);
-		driver.findElement(By.id("login")).click();
+		driver.findElement(By.id("inputEmail")).sendKeys(user);
+		driver.findElement(By.id("inputPassword")).sendKeys(pass);
+		driver.findElement(By.id("boton_login")).click();
 	}
 
 	@Entonces("^entro en la pantalla de sugerencias$")
