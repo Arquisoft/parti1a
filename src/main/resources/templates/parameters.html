@@ -1,34 +1,116 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8" />
-<title>Administration</title>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<title>Administration</title>
+	
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+ 	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+ 	
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 	<script type="text/javascript" th:src="@{/js/suggestions.js}"></script>
+ 	
+ 	<link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}"/>
 </head>
 <body>
-	<h1>Rejected Suggestions</h1>
-	<ul>
-		<li><a href="parameters.html">Parameter configuration</a></li>
-		<li><a href="accepted.html">Accepted Suggestions</a></li>
-		<li><a href="rejected.html">Rejected Suggestions</a></li>
-		<li><a href="transact.html">Suggestions taking support</a></li>
-		<li><a href="voting.html">Suggestions on vote</a></li>
-	</ul>
-	<form method="POST" action="addCategories">
-		<p th:text="${mensaje}" />
-		Add Category <br /> <input type="text" name="acategory" /> <input
-			type="submit" name="add_category" value="Add" />
-	</form>
-	<form method="POST" action="removeCategories">
-		Remove Category <br /> <input type="text" name="rmcategory" /> <input
-			type="submit" name="rm_category" value="Remove" />
-	</form>
-	<form method="POST" action="addWords">
-		Add non-permitted word <br /> <input type="text" name="npw" /> <input
-			type="submit" name="add_word" value="Add" />
-	</form>
-	<form method="POST" action="removeWords">
-		Remove non-permitted word <br /> <input type="text" name="rpw" /> <input
-			type="submit" name="rm_word" value="Remove" />
-	</form>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="config.html">Inicio</a>
+        </div>
+      </div>
+    </nav>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar" id="menu">
+			  <ul class="nav nav-sidebar">
+				<li><a href="dashboardAdmin" id="enlaceInicio">Dashboard</a></li>
+				<li><a href="dashboardGraphics" id="enlaceGraficas">Graphics</a></li>
+				<li class="active"><a href="#">Parameter configuration<span class="sr-only">(current)</span></a></li>
+				<li><a href="accepted.html">Accepted Suggestions</a></li>
+				<li><a href="rejected.html">Rejected Suggestions</a></li>
+				<li><a href="transact.html">Suggestions taking support</a></li>
+				<li><a href="voting.html">Suggestions on vote</a></li>
+			  </ul>
+			</div>
+		
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h1 class="page-header">Rejected Suggestions</h1>
+				
+				<form method="POST" action="addCategories" class="form-horizontal">
+					<div class="form-group">
+						<p th:text="${mensaje}" />
+						<label for="acategory" class="control-label col-sm-2">Add category:</label>
+						<div class="col-sm-4">
+							<input type="text" name="acategory" id="acategory" class="form-control"/> 
+						</div>
+					</div>
+					
+					<div class="form-group"> 
+						<div class="col-sm-offset-2 col-sm-10">
+							<input type="submit" name="add_category" value="Add" class="btn btn-default" />
+						</div>
+					</div>
+				</form>
+				
+				<form method="POST" action="removeCategories" class="form-horizontal">
+					<div class="form-group">
+						<label for="rmcategory" class="control-label col-sm-2">Remove category:</label>
+						<div class="col-sm-4">
+							<input type="text" name="rmcategory" id="rmcategory" class="form-control"/> 
+						</div>
+					</div>
+					
+					<div class="form-group"> 
+						<div class="col-sm-offset-2 col-sm-10">
+							<input type="submit" name="rm_category" value="Remove" class="btn btn-default"/>
+						</div>
+					</div>
+				</form>
+				
+				<form method="POST" action="addWords" class="form-horizontal">
+					<div class="form-group">
+						<label for="npw" class="control-label col-sm-2">Add non-permitted word:</label>
+						<div class="col-sm-4">
+							<input type="text" name="npw" id="npw" class="form-control"/> 
+						</div>
+					</div>
+					
+					<div class="form-group"> 
+						<div class="col-sm-offset-2 col-sm-10">
+							<input type="submit" name="add_word" value="Add" class="btn btn-default"/>
+						</div>
+					</div>
+				</form>
+				
+				<form method="POST" action="removeWords" class="form-horizontal">
+					<div class="form-group">
+						<label for="rpw" class="control-label col-sm-2">Remove non-permitted word:</label>
+						<div class="col-sm-4">
+							<input type="text" name="rpw" id="rpw" class="form-control"/> 
+						</div>
+					</div>
+					
+					<div class="form-group"> 
+						<div class="col-sm-offset-2 col-sm-10">
+							<input type="submit" name="rm_word" value="Remove" class="btn btn-default"/>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

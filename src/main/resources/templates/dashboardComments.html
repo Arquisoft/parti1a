@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
- 	<title>Dashboard</title>
+ 	<title>Administration</title>
  	
  	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
  	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
@@ -26,47 +26,46 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="dashboardAdmin">Dashboard</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
+          <a class="navbar-brand" href="config.html">Inicio</a>
         </div>
       </div>
     </nav>
 
 	<div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar" id="menu">
-	      <ul class="nav nav-sidebar">
-	        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-	      	<li><a href="dashboardGraphics" id="enlaceGraficas">Graphics</a></li>
-	      </ul>
-        </div>
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar" id="menu">
+				<ul class="nav nav-sidebar">
+					<li class="active"><a href="#">Dashboard<span class="sr-only">(current)</span></a></li>
+					<li><a href="dashboardGraphics" id="enlaceGraficas">Graphics</a></li>
+					<li><a href="parameters.html">Parameter configuration</a></li>
+					<li><a href="accepted.html">Accepted Suggestions</a></li>
+					<li><a href="rejected.html">Rejected Suggestions</a></li>
+					<li><a href="transact.html">Suggestions taking support</a></li>
+					<li><a href="voting.html">Suggestions on vote</a></li>
+				</ul>
+			</div>
         
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          	<h1 class="page-header">Dashboard</h1>
-	
-			<h2 class="sub-header">Suggestion <span id="ident" th:text="${suggestionId}"></span></h2>
-			<h3 class="sub-header">Comments</h3>
-	        <div class="table-responsive">
-	        	<table class="table table-striped" id="comentarios">
-					<tr>
-						<th>ID</th>
-						<th>Positive votes</th>
-						<th>Negative votes</th>
-					</tr>
-					<tr th:each="comment : ${allComments}">
-						<th th:text="${comment.identificador}"></th>
-						<td th:text="${comment.votosPositivos}"></td>
-						<td th:text="${comment.votosNegativos}"></td>
-                    </tr>   
-				</table>
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h1 class="page-header">Dashboard</h1>
+		
+				<h2 class="sub-header">Suggestion <span id="ident" th:text="${suggestionId}"></span></h2>
+				<h3 class="sub-header">Comments</h3>
+				<div class="table-responsive">
+					<table class="table table-striped" id="comentarios">
+						<tr>
+							<th>ID</th>
+							<th>Positive votes</th>
+							<th>Negative votes</th>
+						</tr>
+						<tr th:each="comment : ${allComments}">
+							<th th:text="${comment.identificador}"></th>
+							<td th:text="${comment.votosPositivos}"></td>
+							<td th:text="${comment.votosNegativos}"></td>
+						</tr>   
+					</table>
+				</div>
 			</div>
 		</div>
-	  </div>
 	</div>
 	
 	<div class="modal fade" id="alerta" role="dialog">

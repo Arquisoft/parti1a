@@ -1,55 +1,98 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8" />
-<title>Administration</title>
+	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<title>Administration</title>
+	
+	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+ 	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+ 	
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 	<script type="text/javascript" th:src="@{/js/suggestions.js}"></script>
+ 	
+ 	<link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}"/>
 </head>
 <body>
-	<h1>Suggestions on transact</h1>
-	<ul>
-		<li><a href="parameters.html">Parameter configuration</a></li>
-		<li><a href="accepted.html">Accepted Suggestions</a></li>
-		<li><a href="rejected.html">Rejected Suggestions</a></li>
-		<li><a href="transact.html">Suggestions taking support</a></li>
-		<li><a href="voting.html">Suggestions on vote</a></li>
-	</ul>
-	<table border="1">
-		<thead>
-			<tr>
-				<th>Suggestion</th>
-				<th>Description</th>
-				<th>Votes</th>
-				<th>Votes to be accepted</th>
-				<th>Date end</th>
-				<th>Reject</th>
-				<th>Update MinVotes</th>
-				<th>Postpone End (Days from today)</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="iter : ${suggestions}">
-				<td th:text="${iter.titulo}">Title</td>
-				<td th:text="${iter.descripcion}">Description</td>
-				<td th:text="${iter.votosPositivos}">Votes</td>
-				<td th:text="${iter.minVotos}">Min Votes</td>
-				<td th:text="${iter.fechaFin}">End Date</td>
-				<td><a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a></td>
-				<td>
-					<form method="POST"
-						th:action="@{/updateMinVotes(suggestion=${iter.id})}">
-						<input type="number" name="minVotes" value="0" /> <input
-							type="submit" name="update" value="Update" />
-					</form>
-				</td>
-				<td>
-					<form method="POST"
-						th:action="@{/postponeEndDate(suggestion=${iter.id})}">
-						<input type="number" name="endDate" value="0" /> <input
-							type="submit" name="update_date" value="Update" />
-					</form>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="config.html">Inicio</a>
+        </div>
+      </div>
+    </nav>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar" id="menu">
+			  <ul class="nav nav-sidebar">
+				<li><a href="dashboardAdmin" id="enlaceInicio">Dashboard</a></li>
+				<li><a href="dashboardGraphics" id="enlaceGraficas">Graphics</a></li>
+				<li><a href="parameters.html">Parameter configuration</a></li>
+				<li><a href="accepted.html">Accepted Suggestions</a></li>
+				<li><a href="rejected.html">Rejected Suggestions</a></li>
+				<li class="active"><a href="#">Suggestions taking support<span class="sr-only">(current)</span></a></li>
+				<li><a href="voting.html">Suggestions on vote</a></li>
+			  </ul>
+			</div>
+		
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h1 class="page-header">Suggestions on transact</h1>
+					
+				<div class="table-responsive">
+					<table class="table table-striped" >
+						<thead>
+							<tr>
+								<th>Suggestion</th>
+								<th>Description</th>
+								<th>Votes</th>
+								<th>Votes to be accepted</th>
+								<th>Date end</th>
+								<th>Reject</th>
+								<th>Update MinVotes</th>
+								<th>Postpone End (Days from today)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="iter : ${suggestions}">
+								<td th:text="${iter.titulo}">Title</td>
+								<td th:text="${iter.descripcion}">Description</td>
+								<td th:text="${iter.votosPositivos}">Votes</td>
+								<td th:text="${iter.votosMinimos}">Min Votes</td>
+								<td th:text="${iter.fechaFin}">End Date</td>
+								<td><a th:href="@{/rejectSuggestion(idPropuesta=${iter.id})}">Reject</a></td>
+								<td>
+									<form method="POST" th:action="@{/updateMinVotes(suggestion=${iter.id})}" class="form-inline">
+										<div class="form-group">
+											<input type="number" name="minVotes" value="0" class="form-control"/> 
+										</div>
+										<input type="submit" name="update" value="Update" class="btn btn-default"/>
+									</form>
+								</td>
+								<td>
+									<form method="POST" th:action="@{/postponeEndDate(suggestion=${iter.id})}" class="form-inline">
+										<div class="form-group">
+											<input type="number" name="endDate" value="0" class="form-control" />
+										</div>
+										<input type="submit" name="update_date" value="Update" class="btn btn-default"/>
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

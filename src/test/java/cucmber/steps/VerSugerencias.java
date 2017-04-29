@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import cucumber.api.java.es.Cuando;
@@ -23,11 +24,16 @@ public class VerSugerencias {
 		driver.navigate().to(url);
 		assertTrue("titulo no coincide", driver.getTitle().equals("Login"));
 		new PO_LoginForm().completeForm(driver, login, password);
+		
+		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Administration"));
 	}
 	
 	@Entonces("^puede ver las sugerencias$")
 	public void puede_ver_las_sugerencias() throws Throwable {
-		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Dashboard"));
+		WebElement elto = driver.findElements(By.id("enlaceDashboard")).get(0);
+		elto.click();
+		assertTrue("Titulo no tiene el mismo texto", driver
+				.findElement(By.cssSelector("h1.page-header")).getText().equals("Dashboard"));
 		assertTrue("Subtitulo no tiene el mismo texto", driver
 				.findElement(By.cssSelector("h2.sub-header")).getText().equals("Suggestions"));
 		driver.quit();

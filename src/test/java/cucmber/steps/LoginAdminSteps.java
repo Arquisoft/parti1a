@@ -2,7 +2,6 @@ package cucmber.steps;
 
 import static org.junit.Assert.assertTrue;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.springframework.boot.test.IntegrationTest;
@@ -39,9 +38,7 @@ public class LoginAdminSteps {
 
 	@Entonces("^se logea de manera correcta$")
 	public void se_logea_de_manera_correcta() {
-		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Dashboard"));
-		assertTrue("Subtitulo no tiene el mismo texto", driver
-				.findElement(By.cssSelector("h2.sub-header")).getText().equals("Suggestions"));
+		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Administration"));
 
 		ThreadUtil.wait(500);
 		driver.quit();

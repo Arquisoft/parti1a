@@ -115,9 +115,7 @@ public class SeleniumTest {
 		new PO_LoginForm().completeForm(driver, "maria@gmail.com", "123456");
 
 		// (3) Comprobamos que estamos en la página del administrador
-		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Dashboard"));
-		assertTrue("Subtitulo no tiene el mismo texto", driver
-				.findElement(By.cssSelector("h2.sub-header")).getText().equals("Suggestions"));
+		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Administration"));
 		ThreadUtil.wait(2000);
 	}
 
@@ -137,9 +135,13 @@ public class SeleniumTest {
 		assertTrue("texto del boton no coincide", texto.getText().equals("Sign in"));
 
 		new PO_LoginForm().completeForm(driver, "maria@gmail.com", "123456");
+		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Administration"));
 
 		// (2) validamos que estamos en la ventana adecuada
-		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Dashboard"));
+		WebElement elto = driver.findElements(By.id("enlaceDashboard")).get(0);
+		elto.click();
+		assertTrue("Titulo no tiene el mismo texto", driver
+				.findElement(By.cssSelector("h1.page-header")).getText().equals("Dashboard"));
 		assertTrue("Subtitulo no tiene el mismo texto", driver
 				.findElement(By.cssSelector("h2.sub-header")).getText().equals("Suggestions"));
 
@@ -166,13 +168,9 @@ public class SeleniumTest {
 		assertTrue("texto del boton no coincide", texto.getText().equals("Sign in"));
 
 		new PO_LoginForm().completeForm(driver, "maria@gmail.com", "123456");
-
-		// (2) validamos que estamos en la ventana adecuada
-		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Dashboard"));
-		assertTrue("Subtitulo no tiene el mismo texto", driver
-				.findElement(By.cssSelector("h2.sub-header")).getText().equals("Suggestions"));
+		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Administration"));
 		
-		// (3) entramos en la pantalla de graficas
+		// (2) entramos en la pantalla de graficas
 		texto = driver.findElement(By.id("enlaceGraficas"));
 		texto.click();
 		assertTrue("Subtitulo no tiene el mismo texto", driver

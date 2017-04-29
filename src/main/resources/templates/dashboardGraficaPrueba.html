@@ -6,7 +6,7 @@
  	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
  	<meta name="viewport" content="width=device-width, initial-scale=1" />
  	
- 	<title>Dashboard</title>
+ 	<title>Administration</title>
  	 	
  	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
  	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
@@ -101,13 +101,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="dashboardAdmin">Dashboard</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-          </ul>
+          <a class="navbar-brand" href="config.html">Inicio</a>
         </div>
       </div>
     </nav>
@@ -115,10 +109,15 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar" id="menu">
-			  <ul class="nav nav-sidebar">
-				<li><a href="dashboardAdmin" id="enlaceInicio">Overview</a></li>
-				<li class="active"><a href="#">Graphics<span class="sr-only">(current)</span></a></li>
-			  </ul>
+				<ul class="nav nav-sidebar">
+					<li><a href="dashboardAdmin" id="enlaceInicio">Dashboard</a></li>
+					<li class="active"><a href="#">Graphics<span class="sr-only">(current)</span></a></li>
+					<li><a href="parameters.html">Parameter configuration</a></li>
+					<li><a href="accepted.html">Accepted Suggestions</a></li>
+					<li><a href="rejected.html">Rejected Suggestions</a></li>
+					<li><a href="transact.html">Suggestions taking support</a></li>
+					<li><a href="voting.html">Suggestions on vote</a></li>
+				</ul>
 			</div>
 			
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

@@ -24,7 +24,12 @@ public class VerComentariosSteps {
 		driver.navigate().to(url);
 		assertTrue("titulo no coincide", driver.getTitle().equals("Login"));
 		new PO_LoginForm().completeForm(driver, login, password);
-		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Dashboard"));
+		
+		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Administration"));
+		WebElement elto = driver.findElements(By.id("enlaceDashboard")).get(0);
+		elto.click();
+		assertTrue("Titulo no tiene el mismo texto", driver
+				.findElement(By.cssSelector("h1.page-header")).getText().equals("Dashboard"));
 		assertTrue("Subtitulo no tiene el mismo texto", driver
 				.findElement(By.cssSelector("h2.sub-header")).getText().equals("Suggestions"));
 	}

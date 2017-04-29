@@ -49,7 +49,7 @@ public class GetParticipantInfoHTMLController {
 		} else {
 			if (participant.isAdmin())
 				// TODO return config; -> lo de participationSystem
-				return "redirect:/dashboardAdmin";
+				return "config";
 			else
 				// TODO dashboard
 				return "redirect:/dashboardAdmin";
