@@ -108,7 +108,6 @@ public class DashboardController {
 	@RequestMapping("/dashboardAdmin/updates")
 	SseEmitter updateHTML() {
 		SseEmitter sseEmitter = new SseEmitter(Long.MAX_VALUE);
-
 		synchronized (this.sseEmitters) {
 			this.sseEmitters.add(sseEmitter);
 			sseEmitter.onCompletion(() -> {

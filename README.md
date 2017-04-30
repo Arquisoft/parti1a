@@ -4,6 +4,7 @@
 
 # parti1a
 
+Versión de Kafka utilizada: 2.11
 
 # Authors
 

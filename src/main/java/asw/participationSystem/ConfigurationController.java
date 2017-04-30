@@ -98,8 +98,9 @@ public class ConfigurationController {
 			Model model) {
 		Suggestion s = (Suggestion) session.getAttribute("sugerencia");
 		suggestionService.saveSuggestion(s);
+		
 		// Enviar aviso a kafka
-		kafka.sendNewSuggestion(id, s.getTitulo());
+		kafka.sendNewSuggestion(s.getIdentificador(), s.getTitulo());
 		return "redirect:/config";
 	}
 
@@ -108,7 +109,7 @@ public class ConfigurationController {
 		Suggestion s = suggestionService.getSuggestionById(id);
 		suggestionService.deleteSuggestion(s);
 		// Enviar aviso a kafka
-		kafka.sendDeleteSuggestion(id);
+		kafka.sendDeleteSuggestion(s.getIdentificador());
 		return "redirect:/config";
 	}
 

@@ -32,13 +32,14 @@ public class VoteController {
 			model.addAttribute("mensaje", "Ya has votado esta sugerencia anteriormente");
 		else {
 			model.addAttribute("mensaje", "");
-			// Enviar aviso a kafka
-			kafka.sendPositiveSuggestion(id);
+			
 			Suggestion s = suggestionService.getSuggestionById(id);
+			// Enviar aviso a kafka
+			kafka.sendPositiveSuggestion(s.getIdentificador());
 			
 			// Enviar alerta
 			if (s.getVotosPositivos() == s.getVotosMinimos())
-				kafka.sendAlertSuggestion(id);
+				kafka.sendAlertSuggestion(s.getIdentificador());
 		}
 		return "redirect:/index";
 	}

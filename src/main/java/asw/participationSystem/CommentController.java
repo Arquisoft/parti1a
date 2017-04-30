@@ -24,7 +24,7 @@ import asw.streamKafka.productor.KafkaProducer;
 
 @Controller
 public class CommentController {
-	
+
 	private SecureRandom random = new SecureRandom();
 
 	@Autowired
@@ -43,7 +43,8 @@ public class CommentController {
 	private KafkaProducer kafka;
 
 	@RequestMapping("/comments")
-	public String showComments(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {
+	public String showComments(@RequestParam("sugerencia") Long id, HttpSession session,
+			Model model) {
 		session.setAttribute("idSuggestion", id);
 		return "redirect:/listComments";
 	}
@@ -51,31 +52,38 @@ public class CommentController {
 	@RequestMapping("/listComments")
 	public String listComments(Model model, HttpSession session) {
 		Long id = (Long) session.getAttribute("idSuggestion");
-		List<Comment> comentarios = commentService.getCommentsBySuggestion(suggestionService.getSuggestionById(id));
+		List<Comment> comentarios = commentService
+				.getCommentsBySuggestion(suggestionService.getSuggestionById(id));
 		model.addAttribute("comentarios", comentarios);
 		return "comments";
 	}
 
 	@RequestMapping("/votarPositivo")
-	public String votingPositive(@RequestParam("comentario") Long id, HttpSession session, Model model) {
-		if (!participantService.supportCommentPositive(((Participant) session.getAttribute("usuario")).getId(), id))
+	public String votingPositive(@RequestParam("comentario") Long id, HttpSession session,
+			Model model) {
+		if (!participantService.supportCommentPositive(
+				((Participant) session.getAttribute("usuario")).getId(), id))
 			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
 		else {
 			model.addAttribute("mensaje", "Ha votado like a este comentario");
-			long suggestionId = commentService.findCommentById(id).getSuggestion().getId();
-			kafka.sendPositiveComment(id, suggestionId);
+			Comment comment = commentService.findCommentById(id);
+			kafka.sendPositiveComment(comment.getIdentificador(),
+					comment.getSuggestion().getIdentificador());
 		}
 		return "redirect:/listComments";
 	}
 
 	@RequestMapping("/votarNegativo")
-	public String votingNegative(@RequestParam("comentario") Long id, HttpSession session, Model model) {
-		if (!participantService.supportCommentNegative(((Participant) session.getAttribute("usuario")).getId(), id))
+	public String votingNegative(@RequestParam("comentario") Long id, HttpSession session,
+			Model model) {
+		if (!participantService.supportCommentNegative(
+				((Participant) session.getAttribute("usuario")).getId(), id))
 			model.addAttribute("mensaje", "Ya has votado este comentario anteriormente");
 		else {
 			model.addAttribute("mensaje", "Ha votado dislike a este comentario");
-			long suggestionId = commentService.findCommentById(id).getSuggestion().getId();
-			kafka.sendNegativeComment(id, suggestionId);
+			Comment comment = commentService.findCommentById(id);
+			kafka.sendNegativeComment(comment.getIdentificador(),
+					comment.getSuggestion().getIdentificador());
 		}
 		return "redirect:/listComments";
 	}
@@ -94,14 +102,15 @@ public class CommentController {
 			}
 			String identificador = nextId();
 			Participant p = (Participant) session.getAttribute("usuario");
-			Suggestion s = suggestionService.getSuggestionById((Long) session.getAttribute("idSuggestion"));
-			Comment c = commentService.saveComment(new Comment(identificador,comment, p, s));
-			kafka.sendNewComment(c.getId(), s.getId());
+			Suggestion s = suggestionService
+					.getSuggestionById((Long) session.getAttribute("idSuggestion"));
+			Comment c = commentService.saveComment(new Comment(identificador, comment, p, s));
+			kafka.sendNewComment(c.getIdentificador(), s.getIdentificador());
 
 		}
 		return "redirect:/listComments";
 	}
-	
+
 	private String nextId() {
 		return new BigInteger(130, random).toString(32);
 	}

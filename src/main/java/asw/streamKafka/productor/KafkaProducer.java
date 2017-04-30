@@ -22,35 +22,35 @@ public class KafkaProducer {
 	}
 
 	// Sugerencias
-	public void sendNewSuggestion(long suggestionId, String title) {
+	public void sendNewSuggestion(String suggestionId, String title) {
 		send(Topics.NEW_SUGGESTION,
 				"{ \"suggestion\":\"" + suggestionId + "\", \"title\":\"" + title + "\"}");
 	}
 
-	public void sendDeleteSuggestion(long suggestionId) {
+	public void sendDeleteSuggestion(String suggestionId) {
 		send(Topics.DELETE_SUGGESTION, "{ \"suggestion\":\"" + suggestionId + "\" }");
 	}
 
-	public void sendPositiveSuggestion(long suggestionId) {
+	public void sendPositiveSuggestion(String suggestionId) {
 		send(Topics.POSITIVE_SUGGESTION, "{ \"suggestion\":\"" + suggestionId + "\"}");
 	}
 	
-	public void sendAlertSuggestion(long suggestionId) {
+	public void sendAlertSuggestion(String suggestionId) {
 		send(Topics.ALERT_SUGGESTION, "{ \"suggestion\":\"" + suggestionId + "\"}");
 	}
 
 	// Comentarios
-	public void sendNewComment(long commentId, long suggestionId) {
+	public void sendNewComment(String commentId, String suggestionId) {
 		send(Topics.NEW_COMMENT,
 				"{ \"comment\":\"" + commentId + "\", \"suggestion\":\"" + suggestionId + "\"}");
 	}
 
-	public void sendPositiveComment(long commentId, long suggestionId) {
+	public void sendPositiveComment(String commentId, String suggestionId) {
 		send(Topics.POSITIVE_COMMENT,
 				"{ \"comment\":\"" + commentId + "\", \"suggestion\":\"" + suggestionId + "\"}");
 	}
 
-	public void sendNegativeComment(long commentId, long suggestionId) {
+	public void sendNegativeComment(String commentId, String suggestionId) {
 		send(Topics.NEGATIVE_COMMENT,
 				"{ \"comment\":\"" + commentId + "\", \"suggestion\":\"" + suggestionId + "\"}");
 	}

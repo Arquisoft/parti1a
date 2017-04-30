@@ -66,7 +66,7 @@ public class SuggestionController {
 			Category categoria = categoryService.getCategoryById(idcategoria);
 			Suggestion s = suggestionService.saveSuggestion(new Suggestion(identificador, suggestion_title, suggestion_description,
 					(Participant) session.getAttribute("usuario"), categoria));
-			kafka.sendNewSuggestion(s.getId(), s.getTitulo());
+			kafka.sendNewSuggestion(s.getIdentificador(), s.getTitulo());
 			return "redirect:/index";
 		}
 	}
