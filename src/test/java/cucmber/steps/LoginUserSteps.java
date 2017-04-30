@@ -45,11 +45,9 @@ public class LoginUserSteps {
 	}
 
 	@Cuando("^introduzco el usuario \"([^\"]*)\" y la contraseña \"([^\"]*)\"$")
-	public void introduzco_el_usuario_y_la_contraseña(String arg1, String arg2) throws Throwable {
+	public void introduzco_el_usuario_y_la_contraseña(String user, String pass) throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		// throw new PendingException();
-		String user = "jualo@participant.es";
-		String pass = "jualo123";
 		boolean isJualo = false;
 
 		if (jualo.get("user").equals(user) && jualo.get("pass").equals(pass)) {
@@ -69,7 +67,7 @@ public class LoginUserSteps {
 		// throw new PendingException();
 		
 		String currentURL = driver.getCurrentUrl().split(";")[0];
-		dormir(1000);
+		dormir(500);
 		assertEquals(currentURL, baseUrl + "index");
 	}
 	
