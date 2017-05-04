@@ -85,105 +85,110 @@ public class VoteCommentaryTest {
 	@Test
 	public void testNumberVotesComentario1DeleteVote() {
 		voto1.deleteVoteCommentary();
-		
+
 		assertTrue(comentario1.getVotesCommentary().size() == 2);
 
 		assertTrue(comentario1.getVotosPositivos() == 2);
 		assertTrue(comentario1.getVotosNegativos() == 0);
 
 		voto2.deleteVoteCommentary();
-		
+
 		assertTrue(comentario1.getVotesCommentary().size() == 1);
-		
+
 		assertTrue(comentario1.getVotosPositivos() == 1);
 		assertTrue(comentario1.getVotosNegativos() == 0);
 
 		voto3.deleteVoteCommentary();
-		
+
 		assertTrue(comentario1.getVotesCommentary().size() == 0);
 
 		assertTrue(comentario1.getVotosPositivos() == 0);
 		assertTrue(comentario1.getVotosNegativos() == 0);
 	}
-	
+
 	@Test
 	public void testNumberVotesComentario2DeleteVote() {
 		voto4.deleteVoteCommentary();
-		
+
 		assertTrue(comentario2.getVotesCommentary().size() == 2);
 
 		assertTrue(comentario2.getVotosPositivos() == 2);
 		assertTrue(comentario2.getVotosNegativos() == 0);
 
 		voto5.deleteVoteCommentary();
-		
+
 		assertTrue(comentario2.getVotesCommentary().size() == 1);
-		
+
 		assertTrue(comentario2.getVotosPositivos() == 1);
 		assertTrue(comentario2.getVotosNegativos() == 0);
 
 		voto6.deleteVoteCommentary();
-		
+
 		assertTrue(comentario2.getVotesCommentary().size() == 0);
 
 		assertTrue(comentario2.getVotosPositivos() == 0);
 		assertTrue(comentario2.getVotosNegativos() == 0);
 	}
-	
+
 	@Test
 	public void testNumberVotesComentario3DeleteVote() {
 		voto7.deleteVoteCommentary();
-		
+
 		assertTrue(comentario3.getVotesCommentary().size() == 2);
 
 		assertTrue(comentario3.getVotosPositivos() == 2);
 		assertTrue(comentario3.getVotosNegativos() == 0);
 
 		voto8.deleteVoteCommentary();
-		
+
 		assertTrue(comentario3.getVotesCommentary().size() == 1);
-		
+
 		assertTrue(comentario3.getVotosPositivos() == 1);
 		assertTrue(comentario3.getVotosNegativos() == 0);
 
 		voto9.deleteVoteCommentary();
-		
+
 		assertTrue(comentario3.getVotesCommentary().size() == 0);
 
 		assertTrue(comentario3.getVotosPositivos() == 0);
 		assertTrue(comentario3.getVotosNegativos() == 0);
 	}
-	
+
 	@Test
-	public void testMetodosComentario(){
+	public void testMetodosComentario() {
 		comentario1.setTexto("prueba");
 		comentario1.setVotosPositivos(100);
 		comentario1.setVotosNegativos(10);
-		
+		comentario1.setValoracion(0);
+		comentario1.setFechaCreacion(new Date());
+
 		assertTrue(comentario1.getTexto().equals("prueba"));
 		assertTrue(comentario1.getVotosPositivos() == 100);
 		assertTrue(comentario1.getVotosNegativos() == 10);
 		assertTrue(comentario1.getIdentificador().equals("vihvdfibwe"));
-		
+		assertTrue(comentario1.getValoracion() == 0);
+		assertTrue(comentario1.getFechaCreacion().equals(new Date()));
+
 		voto1.setVoteType(VoteType.NEGATIVE);
 		assertTrue(voto1.getVoteType().equals(VoteType.NEGATIVE));
 	}
-	
+
 	@Test
 	public void testMetodoEqualsHashCode() {
 		assertFalse(comentario1.equals(suggestion2));
 		assertFalse(comentario1.equals(4));
 		assertFalse(comentario1.equals(null));
 		assertTrue(comentario1.equals(comentario1));
-		
+
 		assertFalse(voto1.equals(voto2));
 		assertFalse(voto1.equals(4));
 		assertFalse(voto1.equals(null));
 		assertTrue(voto1.equals(voto1));
 	}
-	
+
 	@Test
-	public void testVoteSuggestionToString(){
-		assertEquals(voto1.toString(),"VoteCommentary [participant=" + participant1 + ", comentary=" + comentario1 + "]");
+	public void testVoteSuggestionToString() {
+		assertEquals(voto1.toString(),
+				"VoteCommentary [participant=" + participant1 + ", comentary=" + comentario1 + "]");
 	}
 }

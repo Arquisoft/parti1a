@@ -40,12 +40,8 @@ public class Suggestion {
 	private int numComments = 0;
 
 	@Enumerated(EnumType.STRING)
-	// igual era bueno quitar lo de alert y
-	// probada y trabajar con este enum de
-	// momentio se queda asi.
 	private SuggestionState estado = SuggestionState.BuscandoApoyo;
 	
-	// Para acceder desde Javascript, es un poco rollo con el enumerado
 	private boolean aprobada;
 
 	@Column(name = "fecha_creacion")
@@ -86,7 +82,7 @@ public class Suggestion {
 		Association.Proponer.link(participant, this);
 	}
 
-	public Suggestion(String identificador, String titulo, String descripcion, Participant creator,
+	public Suggestion(String identificador, String titulo, String descripcion, Participant participant,
 			Category category) {
 		this(identificador);
 		this.titulo = titulo;
@@ -99,7 +95,7 @@ public class Suggestion {
 		this.fechaFin = c.getTime();
 		
 		Association.Pertenecer.link(category, this);
-		Association.Proponer.link(creator, this);
+		Association.Proponer.link(participant, this);
 	}
 
 	public Suggestion(String identificador, String titulo, String descripcion, int votosMinimos,

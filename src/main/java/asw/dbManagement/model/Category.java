@@ -53,7 +53,7 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [name=" + name + ", suggestions=" + suggestions + "]";
+		return "Category [name=" + name + "]";
 	}
 
 	public String getName() {
