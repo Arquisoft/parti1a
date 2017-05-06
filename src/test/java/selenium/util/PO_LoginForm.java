@@ -1,12 +1,9 @@
-package selenium.page_objects;
+package selenium.util;
 
 import java.util.List;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import utils.SeleniumUtils;
-import utils.ThreadUtil;
 
 public class PO_LoginForm {
 	

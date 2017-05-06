@@ -1,4 +1,4 @@
-package utils;
+package selenium.util;
 
 import static org.junit.Assert.assertTrue;
 

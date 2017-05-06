@@ -1,4 +1,4 @@
-package utils;
+package selenium.util;
 
 public class ThreadUtil {
 	/*

@@ -6,22 +6,13 @@ import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationContextLoader;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import asw.Application;
 import cucumber.api.java.Before;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Dado;
 import cucumber.api.java.es.Entonces;
-import utils.SeleniumUtils;
+import selenium.util.SeleniumUtils;
 
-@SuppressWarnings("deprecation")
-@ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)
-@IntegrationTest
-@WebAppConfiguration
 public class CrearComentarioUserSteps {
 
 	private WebDriver driver= new HtmlUnitDriver();
@@ -54,7 +45,7 @@ public class CrearComentarioUserSteps {
 	public void ese_usuario_comenta_una_sugerencia() throws Throwable {
 		// Write code here that turns the phrase above into concrete actions
 		// throw new PendingException();
-		String s = driver.getCurrentUrl();
+//		String s = driver.getCurrentUrl();
 		
 		driver.findElement(By.xpath("/html/body/div/div/table/tbody/tr/td[6]/a")).click();
 		SeleniumUtils.EsperaCargaPagina(driver, "id", "comment", 2000);
