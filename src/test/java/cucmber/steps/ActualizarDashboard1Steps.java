@@ -31,7 +31,7 @@ import selenium.util.PO_LoginForm;
 @ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)
 @IntegrationTest
 @WebAppConfiguration
-public class ActualizarSugerenciasSteps {
+public class ActualizarDashboard1Steps {
 	private static SecureRandom random = new SecureRandom();
 	
 	@Autowired
@@ -48,7 +48,8 @@ public class ActualizarSugerenciasSteps {
 	private String url = "http://localhost:8090/";
 	private String login = "maria@gmail.com";
 	private String password = "123456";
-	private Suggestion s;
+	
+	protected static Suggestion s;
 	
 	@Cuando("^el administrador esta en el dashboard$")
 	public void el_administrador_esta_en_el_dashboard() throws Throwable {

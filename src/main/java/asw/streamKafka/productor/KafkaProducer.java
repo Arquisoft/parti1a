@@ -55,23 +55,6 @@ public class KafkaProducer {
 				"{ \"comment\":\"" + commentId + "\", \"suggestion\":\"" + suggestionId + "\"}");
 	}
 
-	// Otras (no las usamos en el dashboard)
-	public void sendMinVotesReached(long suggestionId) {
-		send(Topics.MIN_VOTES_REACHED, "Se ha alcanzado el mínimo de votos -> " + suggestionId);
-	}
-
-	public void sendNewCategory(long catId) {
-		send(Topics.NEW_CATEGORY, "Creada la categoria -> " + catId);
-	}
-
-	public void sendDeleteCategory(long catId) {
-		send(Topics.DELETE_CATEGORY, "Borrada la categoria -> " + catId);
-	}
-
-	public void sendDeniedSuggestion(long suggestionId) {
-		send(Topics.DENIED_SUGGESTION, "Denegada la propuesta -> " + suggestionId);
-	}
-
 	public void send(String topic, String data) {
 		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, data);
 		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {

@@ -20,7 +20,6 @@ import asw.dbManagement.model.Suggestion;
 import asw.dbManagement.model.Word;
 import asw.dbManagement.model.types.SuggestionState;
 import asw.streamKafka.productor.KafkaProducer;
-import asw.streamKafka.productor.Topics;
 
 @Controller
 public class ConfigurationController {
@@ -117,8 +116,6 @@ public class ConfigurationController {
 	public String setDays(@RequestParam("suggestion_duration") int dias, HttpSession session,
 			Model model) {
 		Suggestion.DIAS_ABIERTA = dias;
-		// Enviar aviso a kafka
-		kafka.send(Topics.DAYS_OPEN, "Dias abierta -> " + dias);
 		return "redirect:/parameters";
 	}
 
@@ -136,8 +133,6 @@ public class ConfigurationController {
 			mav.addObject("mensaje", "Category " + nombre + " has been added");
 			// model.addAttribute("mensaje", "Category " + nombre
 			// + " has been added");
-			// Enviar aviso a kafka
-			kafka.sendNewCategory(categoria.getId());
 		} else
 			mav.addObject("mensaje", "Category " + nombre + " already exist");
 		// model.addAttribute("mensaje", "Category " + nombre
@@ -155,18 +150,15 @@ public class ConfigurationController {
 		ModelAndView mav = new ModelAndView();
 
 		if (category != null && category.getSuggestions().isEmpty()) {
-			long catId = category.getId();
 			categoryService.deleteCategory(category);
 			// model.addAttribute("mensaje", "Category " + nombre
 			// + " has been removed");
 			mav.addObject("mensaje", "Category " + nombre + " has been removed");
-			kafka.sendDeleteCategory(catId);
 		} else
 			mav.addObject("mensaje",
 					"Category " + nombre + " doesn't exist or there are suggestion in it");
 		// model.addAttribute("mensaje", "Category " + nombre
 		// + " doesn't exist or there are suggestion in it");
-		// Enviar aviso a kafka
 		mav.setViewName("parameters");
 		return mav;
 	}
@@ -201,8 +193,6 @@ public class ConfigurationController {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
 		suggestion.setEstado(SuggestionState.Rechazada);
 		suggestionService.saveSuggestion(suggestion);
-		// Enviar aviso a kafka
-		kafka.sendDeniedSuggestion(id);
 		return "redirect:/transact";
 	}
 
@@ -211,8 +201,6 @@ public class ConfigurationController {
 		Suggestion suggestion = suggestionService.getSuggestionById(id);
 		suggestion.setEstado(SuggestionState.Rechazada);
 		suggestionService.saveSuggestion(suggestion);
-		// Enviar aviso a kafka
-		kafka.sendDeniedSuggestion(id);
 		return "redirect:/voting";
 	}
 
