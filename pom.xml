@@ -12,12 +12,6 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.4.4.RELEASE</version>
 	</parent>
-	
-	<dependency>
-    		<groupId>org.apache.zookeeper</groupId>
-    		<artifactId>zookeeper</artifactId>
-    		<version>3.4.10</version>
-	</dependency>
 
 	<dependencies>
 		<dependency>
