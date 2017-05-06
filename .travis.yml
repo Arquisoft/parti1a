@@ -8,7 +8,7 @@ env:
   - KAFKA_PEERS=localhost:9092
   - DEMO_KAFKA=demo
 deploy:
- provide: heroku
+ provider: heroku
  app: parti1a
  api_key: "e3fab6da-76c1-4d23-8d83-090ec989bdcb"
 
