@@ -160,14 +160,15 @@ public class VoteCommentaryTest {
 		comentario1.setVotosPositivos(100);
 		comentario1.setVotosNegativos(10);
 		comentario1.setValoracion(0);
-		comentario1.setFechaCreacion(new Date());
+		Date d = new Date();
+		comentario1.setFechaCreacion(d);
 
 		assertTrue(comentario1.getTexto().equals("prueba"));
 		assertTrue(comentario1.getVotosPositivos() == 100);
 		assertTrue(comentario1.getVotosNegativos() == 10);
 		assertTrue(comentario1.getIdentificador().equals("vihvdfibwe"));
 		assertTrue(comentario1.getValoracion() == 0);
-		assertTrue(comentario1.getFechaCreacion().equals(new Date()));
+		assertTrue(comentario1.getFechaCreacion().equals(d));
 
 		voto1.setVoteType(VoteType.NEGATIVE);
 		assertTrue(voto1.getVoteType().equals(VoteType.NEGATIVE));
