@@ -10,7 +10,7 @@ env:
 deploy:
  provider: heroku
  app: parti1a
- api_key: "e3fab6da-76c1-4d23-8d83-090ec989bdcb"
+ api_key: "e4708aca-4b35-4aef-8308-4f2f715d8460"
 
 before_install:
 - wget http://apache.rediris.es/kafka/0.10.2.0/kafka_2.11-0.10.2.0.tgz -O kafka.tgz
