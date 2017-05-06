@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter.SseEvent
 
 import asw.Application;
 import asw.dashboard.EventController;
-import asw.streamKafka.productor.Topics;
+import asw.streamKafka.productor.util.Topics;
 
 @Controller
 public class EventControllerImpl implements EventController {

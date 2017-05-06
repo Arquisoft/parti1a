@@ -12,7 +12,7 @@ import asw.dbManagement.ParticipantService;
 import asw.dbManagement.SuggestionService;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
-import asw.streamKafka.productor.KafkaProducer;
+import asw.streamKafka.productor.KafkaProducerImpl;
 
 @Controller
 public class VoteController {
@@ -24,7 +24,7 @@ public class VoteController {
 	private SuggestionService suggestionService;
 
 	@Autowired
-	private KafkaProducer kafka;
+	private KafkaProducerImpl kafka;
 
 	@RequestMapping("/support")
 	public String votingUp(@RequestParam("sugerencia") Long id, HttpSession session, Model model) {

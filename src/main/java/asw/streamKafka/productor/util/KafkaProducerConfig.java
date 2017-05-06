@@ -1,4 +1,4 @@
-package asw.streamKafka.productor;
+package asw.streamKafka.productor.util;
 
 import java.util.HashMap;
 import java.util.Map;

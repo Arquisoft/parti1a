@@ -12,7 +12,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import asw.Application;
 import asw.dbManagement.CommentService;
 import asw.dbManagement.model.Comment;
-import asw.streamKafka.productor.KafkaProducer;
+import asw.streamKafka.productor.KafkaProducerImpl;
 import cucumber.api.java.es.Entonces;
 
 @SuppressWarnings("deprecation")
@@ -26,7 +26,7 @@ public class ActualizarDashboard2Steps {
 	private CommentService commentService;
 
 	@Autowired
-	private KafkaProducer kafka;
+	private KafkaProducerImpl kafka;
 
 	private Comment c;
 

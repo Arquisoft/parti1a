@@ -19,7 +19,7 @@ import asw.dbManagement.model.Category;
 import asw.dbManagement.model.Suggestion;
 import asw.dbManagement.model.Word;
 import asw.dbManagement.model.types.SuggestionState;
-import asw.streamKafka.productor.KafkaProducer;
+import asw.streamKafka.productor.KafkaProducerImpl;
 
 @Controller
 public class ConfigurationController {
@@ -34,7 +34,7 @@ public class ConfigurationController {
 	private WordService wordService;
 
 	@Autowired
-	private KafkaProducer kafka;
+	private KafkaProducerImpl kafka;
 
 	@RequestMapping("/parameters")
 	public String parameters(Model model) {

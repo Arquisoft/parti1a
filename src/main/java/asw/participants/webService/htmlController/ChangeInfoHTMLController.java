@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import asw.dashboard.util.Validate;
 import asw.dbManagement.UpdateInfo;
 import asw.dbManagement.model.Participant;
 import asw.participants.util.Assert;
@@ -23,13 +24,15 @@ public class ChangeInfoHTMLController {
 	private UpdateInfo updateInfo;
 
 	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST)
-	public String changeInfo() {
+	public String changeInfo(HttpSession session) {
+		Validate.validateUser(session);
 		return "changeInfo";
 	}
 
 	@RequestMapping(value = "/confirmPassword", method = RequestMethod.POST)
 	public String changePassword(HttpSession session, @RequestParam String password,
 			@RequestParam String newPassword, Model model) {
+		Validate.validateUser(session);
 		Assert.isPasswordEmpty(password);
 		Assert.isPasswordEmpty(newPassword);
 		Assert.isSamePassword(password, newPassword);
@@ -49,6 +52,7 @@ public class ChangeInfoHTMLController {
 	
 	@RequestMapping(value = "/confirmEmail", method = RequestMethod.POST)
 	public String changeEmail(HttpSession session, @RequestParam String email, Model model) {
+		Validate.validateUser(session);
 		Assert.isEmailEmpty(email);
 		Assert.isEmailValid(email);
 

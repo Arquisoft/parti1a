@@ -22,7 +22,7 @@ import asw.dbManagement.SuggestionService;
 import asw.dbManagement.model.Category;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
-import asw.streamKafka.productor.KafkaProducer;
+import asw.streamKafka.productor.KafkaProducerImpl;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Entonces;
 import selenium.util.PO_LoginForm;
@@ -42,7 +42,7 @@ public class ActualizarDashboard1Steps {
 	private CategoryService categoryService;
 	
 	@Autowired
-	private KafkaProducer kafka;
+	private KafkaProducerImpl kafka;
 	
 	private WebDriver driver = null;
 	private String url = "http://localhost:8090/";

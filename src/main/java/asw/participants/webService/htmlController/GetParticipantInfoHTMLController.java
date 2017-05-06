@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import asw.dashboard.util.Validate;
 import asw.dbManagement.GetParticipant;
 import asw.dbManagement.model.Participant;
 import asw.participants.util.Assert;
@@ -63,6 +64,7 @@ public class GetParticipantInfoHTMLController {
 	 */
 	@RequestMapping(value = "/profile")
 	public String getProfile(HttpSession session){
+		Validate.validateUser(session);
 		Participant participant = (Participant) session.getAttribute("usuario");
 		session.setAttribute("edad", Utilidades.getEdad(participant.getFechaNacimiento()));
 		return "datosParticipant";

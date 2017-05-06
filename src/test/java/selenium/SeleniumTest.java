@@ -188,7 +188,7 @@ public class SeleniumTest {
 	}
 
 	@Test
-	public void t5_testNoAdmin() {
+	public void t6_testNoAdmin() {
 		// (1) intentamos entrar en admin como usuario normal
 		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
 

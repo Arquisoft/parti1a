@@ -19,7 +19,7 @@ import asw.dbManagement.model.Category;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
 import asw.dbManagement.model.Word;
-import asw.streamKafka.productor.KafkaProducer;
+import asw.streamKafka.productor.KafkaProducerImpl;
 
 @Controller
 public class SuggestionController {
@@ -36,7 +36,7 @@ public class SuggestionController {
 	private WordService wordService;
 	
 	@Autowired
-	private KafkaProducer kafka;
+	private KafkaProducerImpl kafka;
 
 	@RequestMapping("/createSuggestion")
 	public String viewFormCreateSuggestion(Model model) {
