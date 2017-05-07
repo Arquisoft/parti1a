@@ -24,7 +24,7 @@ public class MainController {
 	public String index(Model model) {
 		List<Suggestion> sugerencias = suggestionService.getVotables();
 		model.addAttribute("sugerencias", sugerencias);
-		return "index";
+		return "users/index";
 	}
 
 	@ExceptionHandler(Exception.class)

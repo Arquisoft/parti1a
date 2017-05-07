@@ -14,37 +14,44 @@ import asw.dashboard.util.Validate;
 import asw.dbManagement.repository.SuggestionRepository;
 
 @Controller
-public class DashboardControllerImpl implements DashboardController{
+@RequestMapping("/dashboardAdmin")
+public class DashboardControllerAdminImpl implements DashboardController{
 	@Autowired
 	private SuggestionRepository suggestionRepository;
 
-	// Inicio del dashboard que muestra las sugerencias
-	@RequestMapping("/dashboardAdmin")
+	/**
+	 * Inicio del dashboard que muestra las sugerencias para admin
+	 */
+	@RequestMapping("/dashboard")
 	public String showSuggestions(HttpSession session, Model model) {
 		Validate.validateAdmin(session);
 		model.addAttribute("allSuggestions", suggestionRepository.findAll());
-		return "dashboardSuggestions";
+		return "admin/dashboard/suggestions";
 	}
 
-	// Muestra las graficas
-	@RequestMapping("/dashboardGraphics")
+	/**
+	 * Muestra las graficas
+	 */
+	@RequestMapping("/graphics")
 	public String showGraphics(HttpSession session, Model model) {
 		Validate.validateAdmin(session);
 		model.addAttribute("allSuggestions",
 				suggestionRepository.findAll().stream().map(s -> s.getIdentificador()).toArray());
 		model.addAttribute("allVotes",
 				suggestionRepository.findAll().stream().map(s -> s.getVotosPositivos()).toArray());
-		return "dashboardGraficaPrueba";
+		return "admin/dashboard/graficas";
 	}
 
-	// Pagina de comentarios por sugerencia en el dashboard
+	/**
+	 * Comentarios de una sugerencia
+	 */
 	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
 	public String showComments(HttpSession session, @PathVariable("id") String id, Model model) {
 		Validate.validateAdmin(session);
 		model.addAttribute("suggestionId", id);
 		model.addAttribute("allComments",
 				suggestionRepository.findByIdentificador(id).getCommentaries());
-		return "dashboardComments";
+		return "admin/dashboard/comments";
 	}
 
 }

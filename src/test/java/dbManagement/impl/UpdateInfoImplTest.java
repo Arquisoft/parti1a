@@ -1,7 +1,5 @@
 package dbManagement.impl;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import asw.Application;
 import asw.dbManagement.ParticipantService;
 import asw.dbManagement.UpdateInfo;
-import asw.dbManagement.model.Participant;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)

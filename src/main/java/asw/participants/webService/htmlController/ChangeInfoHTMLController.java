@@ -26,7 +26,7 @@ public class ChangeInfoHTMLController {
 	@RequestMapping(value = "/changeInfo", method = RequestMethod.POST)
 	public String changeInfo(HttpSession session) {
 		Validate.validateUser(session);
-		return "changeInfo";
+		return "users/changeInfo";
 	}
 
 	@RequestMapping(value = "/confirmPassword", method = RequestMethod.POST)
@@ -47,7 +47,7 @@ public class ChangeInfoHTMLController {
 
 		// Mensaje a mostrar en HTML
 		model.addAttribute("info", "Contraseña actualizada correctamente");
-		return "datosParticipant";
+		return "users/datosParticipant";
 	}
 	
 	@RequestMapping(value = "/confirmEmail", method = RequestMethod.POST)
@@ -57,7 +57,7 @@ public class ChangeInfoHTMLController {
 		Assert.isEmailValid(email);
 
 		// Participant que se ha logeado antes
-		Participant p = (Participant) session.getAttribute("participant");
+		Participant p = (Participant) session.getAttribute("usuario");
 		Assert.isParticipantNull(p);
 		Assert.isSameEmail(email, p.getEmail());
 
@@ -66,7 +66,7 @@ public class ChangeInfoHTMLController {
 
 		// Mensaje a mostrar en HTML
 		model.addAttribute("info", "Email actualizado correctamente");
-		return "datosParticipant";
+		return "users/datosParticipant";
 	}
 
 	@ExceptionHandler(ErrorResponse.class)

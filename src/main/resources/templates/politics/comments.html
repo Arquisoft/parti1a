@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+ 	<meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+ 	<title>Administration</title>
+ 	
+ 	<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+ 	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+ 	
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+ 	<script type="text/javascript" th:src="@{/js/comments.js}"></script>
+ 	
+ 	<link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}"/>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+			<a class="navbar-brand" href="dashboard">Inicio</a>
+        </div>
+      </div>
+    </nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-md-2 sidebar" id="menu">
+				<ul class="nav nav-sidebar">
+					<li class="active"><a href="#">Dashboard<span class="sr-only">(current)</span></a></li>
+					<li><a href="graphics" id="enlaceGraficas">Graphics</a></li>
+				</ul>
+			</div>
+        
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<h1 class="page-header">Dashboard</h1>
+		
+				<h2 class="sub-header">Suggestion <span id="ident" th:text="${suggestionId}"></span></h2>
+				<h3 class="sub-header">Comments</h3>
+				<div class="table-responsive">
+					<table class="table table-striped" id="comentarios">
+						<tr>
+							<th>ID</th>
+							<th>Positive votes</th>
+							<th>Negative votes</th>
+						</tr>
+						<tr th:each="comment : ${allComments}">
+							<th th:text="${comment.identificador}"></th>
+							<td th:text="${comment.votosPositivos}"></td>
+							<td th:text="${comment.votosNegativos}"></td>
+						</tr>   
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="alerta" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Suggestion warning</h4>
+				</div>
+				<div class="modal-body">
+					<p>This suggestion has been deleted.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

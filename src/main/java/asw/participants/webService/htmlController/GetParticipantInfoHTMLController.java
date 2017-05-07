@@ -49,11 +49,9 @@ public class GetParticipantInfoHTMLController {
 			return "redirect:/index";
 		} else {
 			if (participant.isAdmin())
-				// TODO return config; -> lo de participationSystem
-				return "config";
+				return "admin/config";
 			else
-				// TODO dashboard
-				return "redirect:/dashboardAdmin";
+				return "redirect:/dashboardPolitics/dashboard";
 		}
 	}
 	
@@ -67,14 +65,13 @@ public class GetParticipantInfoHTMLController {
 		Validate.validateUser(session);
 		Participant participant = (Participant) session.getAttribute("usuario");
 		session.setAttribute("edad", Utilidades.getEdad(participant.getFechaNacimiento()));
-		return "datosParticipant";
+		return "users/datosParticipant";
 	}
 
 	@ExceptionHandler(ErrorResponse.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public String handleErrorResponseNotFound(ErrorResponse excep, Model model) {
 		model.addAttribute("error", excep.getMessageStringFormat());
-
 		return "error";
 	}
 }

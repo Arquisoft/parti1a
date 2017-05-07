@@ -40,7 +40,7 @@ public class ParticipantServiceImplTest {
 
 	@Test
 	public void testSupportSuggestion() {
-		boolean result = service.supportSuggestion(new Long(1), new Long(81));
+		boolean result = service.supportSuggestion(new Long(1), new Long(1));
 		if (result)
 			assertEquals(true, result);
 		else
@@ -49,7 +49,7 @@ public class ParticipantServiceImplTest {
 
 	@Test
 	public void testSupportCommentPositive() {
-		boolean result = service.supportCommentPositive(new Long(1), new Long(92));
+		boolean result = service.supportCommentPositive(new Long(1), new Long(2));
 		if (result)
 			assertEquals(true, result);
 		else
@@ -58,7 +58,7 @@ public class ParticipantServiceImplTest {
 
 	@Test
 	public void testSupportCommentNegative() {
-		boolean result = service.supportCommentNegative(new Long(1), new Long(92));
+		boolean result = service.supportCommentNegative(new Long(1), new Long(1));
 		if (result)
 			assertEquals(true, result);
 		else

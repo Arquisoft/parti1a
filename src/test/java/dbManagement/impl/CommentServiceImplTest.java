@@ -18,7 +18,6 @@ import asw.dbManagement.CommentService;
 import asw.dbManagement.ParticipantService;
 import asw.dbManagement.SuggestionService;
 import asw.dbManagement.model.Comment;
-import asw.dbManagement.model.Suggestion;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -36,9 +35,11 @@ public class CommentServiceImplTest {
 
 	@Test
 	public void testGetCommentById() {
-		Comment c = service.findCommentById(92);
-		assertEquals("78l9knpnmm4t9sn7jrlfd8fh3k", c.getIdentificador());
-		assertEquals("prueba comentario", c.getTexto());
+		Comment c1 = service.getAllComments().get(0);
+		Long id = c1.getId();
+		Comment c2 = service.findCommentById(id);
+		assertEquals(c1.getIdentificador(), c2.getIdentificador());
+		assertEquals(c1.getTexto(), c2.getTexto());
 	}
 
 	@Test
@@ -65,7 +66,7 @@ public class CommentServiceImplTest {
 		List<Comment> list = service.getAllComments();
 		identificador = identificador + list.size();
 		Comment c = service.saveComment(new Comment(identificador, "test",
-				ps.getParticipant("pepe@participant.es", "12345"), ss.getSuggestionById(new Long(81))));
+				ps.getParticipant("pepe@participant.es", "12345"), ss.getAllSuggestions().get(0)));
 
 		if (c != null) {
 			assertEquals(identificador, c.getIdentificador());

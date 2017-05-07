@@ -40,7 +40,7 @@ public class ConfigurationController {
 	public String parameters(Model model) {
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
-		return "parameters";
+		return "admin/parameters";
 	}
 
 	@RequestMapping("/accepted")
@@ -49,7 +49,7 @@ public class ConfigurationController {
 				.getSuggestionByStatus(SuggestionState.Aceptada);
 		model.addAttribute("suggestions", acceptedSuggestions);
 
-		return "accepted";
+		return "admin/accepted";
 	}
 
 	@RequestMapping("/rejected")
@@ -57,7 +57,7 @@ public class ConfigurationController {
 		List<Suggestion> rejectedSuggestions = suggestionService
 				.getSuggestionByStatus(SuggestionState.Rechazada);
 		model.addAttribute("suggestions", rejectedSuggestions);
-		return "rejected";
+		return "admin/rejected";
 	}
 
 	@RequestMapping("/transact")
@@ -65,7 +65,7 @@ public class ConfigurationController {
 		List<Suggestion> trasactSuggestions = suggestionService
 				.getSuggestionByStatus(SuggestionState.BuscandoApoyo);
 		model.addAttribute("suggestions", trasactSuggestions);
-		return "transact";
+		return "admin/transact";
 	}
 
 	@RequestMapping("/find")
@@ -73,7 +73,7 @@ public class ConfigurationController {
 			Model model) {
 		List<Suggestion> suggestions = suggestionService.getSuggestionByTitle(title);
 		model.addAttribute("suggestions", suggestions);
-		return "config";
+		return "admin/config";
 	}
 
 	@RequestMapping("/voting")
@@ -81,14 +81,14 @@ public class ConfigurationController {
 		List<Suggestion> votingSuggestions = suggestionService
 				.getSuggestionByStatus(SuggestionState.EnVotacion);
 		model.addAttribute("suggestions", votingSuggestions);
-		return "voting";
+		return "admin/voting";
 	}
 
 	@RequestMapping("/config")
 	public String config(Model model) {
 		List<Suggestion> sugerencias = suggestionService.getAllSuggestions();
 		model.addAttribute("sugerencias", sugerencias);
-		return "config";
+		return "admin/config";
 	}
 
 	// TODO No funciona, ya lo arreglare si al final permitimos edicion
@@ -138,7 +138,7 @@ public class ConfigurationController {
 		// model.addAttribute("mensaje", "Category " + nombre
 		// + " already exist");
 
-		mav.setViewName("parameters");
+		mav.setViewName("admin/parameters");
 		return mav;
 	}
 
@@ -159,7 +159,7 @@ public class ConfigurationController {
 					"Category " + nombre + " doesn't exist or there are suggestion in it");
 		// model.addAttribute("mensaje", "Category " + nombre
 		// + " doesn't exist or there are suggestion in it");
-		mav.setViewName("parameters");
+		mav.setViewName("admin/parameters");
 		return mav;
 	}
 
@@ -173,7 +173,7 @@ public class ConfigurationController {
 		} else {
 			model.addAttribute("mensaje", "Non-permitted word " + word2a + " already exist");
 		}
-		return "parameters";
+		return "admin/parameters";
 	}
 
 	@RequestMapping("/removeWords")
@@ -185,7 +185,7 @@ public class ConfigurationController {
 		} else {
 			model.addAttribute("mensaje", "Non-permitted word " + word2r + " doesn't exist");
 		}
-		return "parameters";
+		return "admin/parameters";
 	}
 
 	@RequestMapping("/rejectSuggestion")

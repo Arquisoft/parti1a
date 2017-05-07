@@ -12,7 +12,8 @@
  	<link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
  	
  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
- 	<script type="text/javascript" th:src="@{/js/comments.js}"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 	<script type="text/javascript" th:src="@{/js/suggestions.js}"></script>
  	
  	<link rel="shortcut icon" type="image/png" th:href="@{/img/favicon.png}"/>
 </head>
@@ -20,7 +21,7 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-			<a class="navbar-brand" href="config.html">Inicio</a>
+          <a class="navbar-brand" href="#">Inicio</a>
         </div>
       </div>
     </nav>
@@ -30,31 +31,32 @@
 			<div class="col-sm-3 col-md-2 sidebar" id="menu">
 				<ul class="nav nav-sidebar">
 					<li class="active"><a href="#">Dashboard<span class="sr-only">(current)</span></a></li>
-					<li><a href="dashboardGraphics" id="enlaceGraficas">Graphics</a></li>
-					<li><a href="parameters.html">Parameter configuration</a></li>
-					<li><a href="accepted.html">Accepted Suggestions</a></li>
-					<li><a href="rejected.html">Rejected Suggestions</a></li>
-					<li><a href="transact.html">Suggestions taking support</a></li>
-					<li><a href="voting.html">Suggestions on vote</a></li>
+					<li><a href="graphics" id="enlaceGraficas">Graphics</a></li>
 				</ul>
 			</div>
         
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<h1 class="page-header">Dashboard</h1>
 		
-				<h2 class="sub-header">Suggestion <span id="ident" th:text="${suggestionId}"></span></h2>
-				<h3 class="sub-header">Comments</h3>
+				<h2 class="sub-header">Suggestions</h2>
 				<div class="table-responsive">
-					<table class="table table-striped" id="comentarios">
+					<table class="table table-striped" id="sugerencias">
 						<tr>
-							<th>ID</th>
-							<th>Positive votes</th>
-							<th>Negative votes</th>
+							<th>Ident</th>
+							<th>Title</th>
+							<th>Votes</th>
+							<th>Comments</th>
 						</tr>
-						<tr th:each="comment : ${allComments}">
-							<th th:text="${comment.identificador}"></th>
-							<td th:text="${comment.votosPositivos}"></td>
-							<td th:text="${comment.votosNegativos}"></td>
+						<tr th:each="suggestion : ${allSuggestions}">
+							<th th:if="${suggestion.aprobada}">
+								<a class="sugerencia" th:href="${suggestion.identificador}" th:text="${suggestion.identificador}" style="color:red;"></a>
+							</th>
+							<th th:unless="${suggestion.aprobada}">
+								<a class="sugerencia" th:href="${suggestion.identificador}" th:text="${suggestion.identificador}"></a>
+							</th>
+							<td th:text="${suggestion.titulo}"></td>
+							<td th:text="${suggestion.votosPositivos}"></td>
+							<td th:text="${suggestion.numComments}"></td>
 						</tr>   
 					</table>
 				</div>
@@ -68,10 +70,10 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Suggestion warning</h4>
+					<h4 class="modal-title">Suggestion alert</h4>
 				</div>
 				<div class="modal-body">
-					<p>This suggestion has been deleted.</p>
+					<p>Suggestion has been approved.</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

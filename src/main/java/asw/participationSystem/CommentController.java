@@ -55,7 +55,7 @@ public class CommentController {
 		List<Comment> comentarios = commentService
 				.getCommentsBySuggestion(suggestionService.getSuggestionById(id));
 		model.addAttribute("comentarios", comentarios);
-		return "comments";
+		return "users/comments";
 	}
 
 	@RequestMapping("/votarPositivo")

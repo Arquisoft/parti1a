@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,11 +38,11 @@ public class Participant {
 	private boolean isAdmin;
 	private boolean isPolitician;
 
-	@OneToMany(mappedBy = "participant", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "participant", fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
 	private Set<Suggestion> suggestions = new HashSet<Suggestion>();
-	@OneToMany(mappedBy = "participant", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "participant", fetch=FetchType.EAGER, cascade=CascadeType.MERGE)
 	private Set<Comment> commentaries = new HashSet<Comment>();
-	@OneToMany(mappedBy = "participant", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "participant")
 	private Set<VoteSuggestion> votesSuggestion = new HashSet<VoteSuggestion>();
 	@OneToMany(mappedBy = "participant")
 	private Set<VoteComment> votesCommentaries = new HashSet<VoteComment>();

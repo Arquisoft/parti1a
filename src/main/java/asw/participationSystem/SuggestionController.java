@@ -41,7 +41,7 @@ public class SuggestionController {
 	@RequestMapping("/createSuggestion")
 	public String viewFormCreateSuggestion(Model model) {
 		model.addAttribute("categorias", categoryService.getAllCategories());
-		return "createSuggestion";
+		return "users/createSuggestion";
 	}
 
 	@RequestMapping("/create")
@@ -49,17 +49,17 @@ public class SuggestionController {
 			@RequestParam("categoria") Long idcategoria, HttpSession session, Model model) {
 		if (suggestion_description.equals("") || suggestion_description.equals("")) {
 			model.addAttribute("mensajes", "No puedes dejar los campos de texto vacios");
-			return "createSuggestion";
+			return "users/createSuggestion";
 		} else {
 			List<Word> words = wordService.getAllWords();
 			for (int i = 0; i < words.size(); i++) {
 				if (suggestion_title.toLowerCase().contains(words.get(i).getWord())) {
 					model.addAttribute("mensajes", "El titulo de la propuesta contiene palabras prohibidas");
-					return "createSuggestion";
+					return "users/createSuggestion";
 				}
 				if (suggestion_description.toLowerCase().contains(words.get(i).getWord())) {
 					model.addAttribute("mensajes", "La descripción de la propuesta contiene palabras prohibidas");
-					return "createSuggestion";
+					return "users/createSuggestion";
 				}
 			}
 			String identificador = nextId();

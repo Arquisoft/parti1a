@@ -15,6 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import selenium.util.PO_LoginForm;
+import selenium.util.SeleniumUtils;
 import selenium.util.ThreadUtil;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -118,7 +119,7 @@ public class SeleniumTest {
 	}
 
 	@Test
-	public void t3_testEntrarEnSugerencia() {
+	public void t3_testEntrarEnSugerenciaAdmin() {
 		// (1) realizamos un login
 		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
 
@@ -151,7 +152,7 @@ public class SeleniumTest {
 	}
 
 	@Test
-	public void t4_testEntrarEnGraficas() {
+	public void t4_testEntrarEnGraficasAdmin() {
 		// (1) realizamos un login
 		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
 
@@ -176,10 +177,10 @@ public class SeleniumTest {
 	}
 
 	@Test
-	public void t5_testNoLogin() {
+	public void t5_testNoLoginAdmin() {
 		// (1) intentamos entrar en admin sin logearnos
 		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
-		driver.navigate().to(URLInicio + "dashboardAdmin");
+		driver.navigate().to(URLInicio + "dashboardAdmin/dashboard");
 
 		// (2) comprobamos que estemos en la página de error
 		WebElement mensajeError = driver.findElement(By.id("error_div"));
@@ -202,9 +203,164 @@ public class SeleniumTest {
 		texto = driver.findElement(By.id("boton_login"));
 		assertTrue("texto del boton no coincide", texto.getText().equals("Sign in"));
 
-		new PO_LoginForm().completeForm(driver, "pepe@participant.es", "12345");
+		new PO_LoginForm().completeForm(driver, "jualo@participant.es", "12345");
 
-		driver.navigate().to(URLInicio + "dashboardAdmin");
+		driver.navigate().to(URLInicio + "dashboardAdmin/dashboard");
+
+		// (2) comprobamos que estemos en la página de error
+		WebElement mensajeError = driver.findElement(By.id("error_div"));
+		assertTrue("El mensaje de error no coincide",
+				mensajeError.getText().equals("Ha ocurrido el siguiente error: Unauthorized"));
+	}
+	
+	@Test
+	public void t7_testLoginPolitico() {
+		// (1) Comprobamos que estamos en la página de login
+		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
+
+		WebElement texto = driver.findElement(By.id("inputEmail"));
+		assertTrue("placeholder no coincide",
+				texto.getAttribute("placeholder").equals("Email address"));
+
+		texto = driver.findElement(By.id("inputPassword"));
+		assertTrue("placeholder no coincide", texto.getAttribute("placeholder").equals("Password"));
+
+		texto = driver.findElement(By.id("boton_login"));
+		assertTrue("texto del boton no coincide", texto.getText().equals("Sign in"));
+
+		// (2) nos logeamos como administrador correctamente
+		new PO_LoginForm().completeForm(driver, "jose@gmail.com", "123456");
+
+		// (3) Comprobamos que estamos en la página del administrador
+		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Administration"));
+		ThreadUtil.wait(2000);
+	}
+	
+	@Test
+	public void t8_testEntrarEnSugerenciaPolitico() {
+		// (1) realizamos un login
+		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
+
+		WebElement texto = driver.findElement(By.id("inputEmail"));
+		assertTrue("placeholder no coincide",
+				texto.getAttribute("placeholder").equals("Email address"));
+
+		texto = driver.findElement(By.id("inputPassword"));
+		assertTrue("placeholder no coincide", texto.getAttribute("placeholder").equals("Password"));
+
+		texto = driver.findElement(By.id("boton_login"));
+		assertTrue("texto del boton no coincide", texto.getText().equals("Sign in"));
+
+		new PO_LoginForm().completeForm(driver, "jose@gmail.com", "123456");
+		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Administration"));
+
+		// (2) validamos que estamos en la ventana adecuada
+		assertTrue("Titulo no tiene el mismo texto",
+				driver.findElement(By.cssSelector("h1.page-header")).getText().equals("Dashboard"));
+		assertTrue("Subtitulo no tiene el mismo texto", driver
+				.findElement(By.cssSelector("h2.sub-header")).getText().equals("Suggestions"));
+		SeleniumUtils.textoNoPresentePagina(driver, "Parameter configuration");
+		
+		// (3) entramos en la primera sugerencia
+		texto = driver.findElements(By.className("sugerencia")).get(0);
+		texto.click();
+		assertTrue("Subtitulo no tiene el mismo texto",
+				driver.findElement(By.cssSelector("h3.sub-header")).getText().equals("Comments"));
+	}
+
+	@Test
+	public void t9_testEntrarEnGraficasPolitico() {
+		// (1) realizamos un login
+		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
+
+		WebElement texto = driver.findElement(By.id("inputEmail"));
+		assertTrue("placeholder no coincide",
+				texto.getAttribute("placeholder").equals("Email address"));
+
+		texto = driver.findElement(By.id("inputPassword"));
+		assertTrue("placeholder no coincide", texto.getAttribute("placeholder").equals("Password"));
+
+		texto = driver.findElement(By.id("boton_login"));
+		assertTrue("texto del boton no coincide", texto.getText().equals("Sign in"));
+
+		new PO_LoginForm().completeForm(driver, "jose@gmail.com", "123456");
+		assertTrue("Titulo no se corresponde", driver.getTitle().equals("Administration"));
+		SeleniumUtils.textoNoPresentePagina(driver, "Parameter configuration");
+
+		// (2) entramos en la pantalla de graficas
+		texto = driver.findElement(By.id("enlaceGraficas"));
+		texto.click();
+		assertTrue("Subtitulo no tiene el mismo texto",
+				driver.findElement(By.cssSelector("h1.page-header")).getText().equals("Graphics"));
+	}
+	
+	@Test
+	public void t10_testNoLoginPolitico() {
+		// (1) intentamos entrar en admin sin logearnos
+		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
+		driver.navigate().to(URLInicio + "dashboardPolitics/dashboard");
+
+		// (2) comprobamos que estemos en la página de error
+		WebElement mensajeError = driver.findElement(By.id("error_div"));
+		assertTrue("El mensaje de error no coincide",
+				mensajeError.getText().equals("Ha ocurrido el siguiente error: Unauthorized"));
+	}
+
+	@Test
+	public void t11_testNoPolitico() {
+		// (1) intentamos entrar en admin como usuario normal
+		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
+
+		WebElement texto = driver.findElement(By.id("inputEmail"));
+		assertTrue("placeholder no coincide",
+				texto.getAttribute("placeholder").equals("Email address"));
+
+		texto = driver.findElement(By.id("inputPassword"));
+		assertTrue("placeholder no coincide", texto.getAttribute("placeholder").equals("Password"));
+
+		texto = driver.findElement(By.id("boton_login"));
+		assertTrue("texto del boton no coincide", texto.getText().equals("Sign in"));
+
+		new PO_LoginForm().completeForm(driver, "jualo@participant.es", "12345");
+
+		driver.navigate().to(URLInicio + "dashboardPolitics/dashboard");
+
+		// (2) comprobamos que estemos en la página de error
+		WebElement mensajeError = driver.findElement(By.id("error_div"));
+		assertTrue("El mensaje de error no coincide",
+				mensajeError.getText().equals("Ha ocurrido el siguiente error: Unauthorized"));
+	}
+	
+	@Test
+	public void t12_testNoLoginUser() {
+		// (1) intentamos entrar en admin sin logearnos
+		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
+		driver.navigate().to(URLInicio + "profile");
+
+		// (2) comprobamos que estemos en la página de error
+		WebElement mensajeError = driver.findElement(By.id("error_div"));
+		assertTrue("El mensaje de error no coincide",
+				mensajeError.getText().equals("Ha ocurrido el siguiente error: Unauthorized"));
+	}
+	
+	@Test
+	public void t13_testNoUser() {
+		// (1) intentamos entrar en admin como usuario normal
+		assertTrue("Titulo de pagina no coincide", driver.getTitle().equals("Login"));
+
+		WebElement texto = driver.findElement(By.id("inputEmail"));
+		assertTrue("placeholder no coincide",
+				texto.getAttribute("placeholder").equals("Email address"));
+
+		texto = driver.findElement(By.id("inputPassword"));
+		assertTrue("placeholder no coincide", texto.getAttribute("placeholder").equals("Password"));
+
+		texto = driver.findElement(By.id("boton_login"));
+		assertTrue("texto del boton no coincide", texto.getText().equals("Sign in"));
+
+		new PO_LoginForm().completeForm(driver, "maria@gmail.com", "12345");
+
+		driver.navigate().to(URLInicio + "profile");
 
 		// (2) comprobamos que estemos en la página de error
 		WebElement mensajeError = driver.findElement(By.id("error_div"));

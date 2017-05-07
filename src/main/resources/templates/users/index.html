@@ -38,7 +38,9 @@
 	<div class="container-fluid">
 		<h1 class="page-header">Propuestas activas</h1>
 		<p th:text="${mensaje}" />
-		
+		<br />
+		<a th:href="createSuggestion.html">Crear una propuesta</a>
+		<br/>
 		<div class="table-responsive">
 			<table id="tablaPropuestas" class="table table-striped">
 				<thead>
@@ -65,9 +67,6 @@
 				</tbody>
 			</table>
 		</div>
-		
-		<br />
-		<a th:href="createSuggestion.html">Crear una propuesta</a>
 	</div>
 </body>
 </html>

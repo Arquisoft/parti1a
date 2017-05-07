@@ -56,7 +56,7 @@ public class Suggestion {
 	@ManyToOne
 	private Participant participant;
 	
-	@OneToMany(mappedBy = "suggestion", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "suggestion", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Set<Comment> commentaries = new HashSet<Comment>();
 	@OneToMany(mappedBy = "suggestion", cascade = CascadeType.REMOVE)
 	private Set<VoteSuggestion> votesSuggestion = new HashSet<VoteSuggestion>();

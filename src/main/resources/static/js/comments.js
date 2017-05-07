@@ -1,4 +1,4 @@
-var eventSource = new EventSource("/dashboardAdmin/updates");
+var eventSource = new EventSource("/dashboard/updates");
 
 eventSource.addEventListener("deleteSuggestion", function(event) {
 	var obj = JSON.parse(event.data);

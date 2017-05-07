@@ -17,7 +17,7 @@ public class Category {
 	@GeneratedValue
 	private Long id;
 	private String name;
-	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "category", fetch=FetchType.EAGER)
 	private Set<Suggestion> suggestions = new HashSet<Suggestion>();
 
 	Category() {

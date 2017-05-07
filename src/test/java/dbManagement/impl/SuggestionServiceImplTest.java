@@ -42,10 +42,11 @@ public class SuggestionServiceImplTest {
 
 	@Test
 	public void testGetSuggestionById() {
-		Suggestion s = service.getSuggestionById(new Long(81));
-		assertEquals("prueba", s.getDescripcion());
-		assertEquals(new Long(81), s.getId());
-		assertEquals("eouiqvn3ronoorp5plq0t1skdb", s.getIdentificador());
+		Suggestion s1 = service.getAllSuggestions().get(0);
+		Suggestion s2 = service.getSuggestionById(s1.getId());
+		assertEquals(s1.getDescripcion(), s2.getDescripcion());
+		assertEquals(s1.getId(), s2.getId());
+		assertEquals(s1.getIdentificador(), s2.getIdentificador());
 
 	}
 
