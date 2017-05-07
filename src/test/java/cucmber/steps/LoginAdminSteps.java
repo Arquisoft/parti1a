@@ -4,21 +4,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationContextLoader;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-import asw.Application;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Entonces;
-import selenium.page_objects.PO_LoginForm;
-import utils.ThreadUtil;
+import selenium.util.PO_LoginForm;
+import selenium.util.ThreadUtil;
 
-@SuppressWarnings("deprecation")
-@ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)
-@IntegrationTest
-@WebAppConfiguration
 public class LoginAdminSteps {
 	private WebDriver driver = null;
 	private String url = "http://localhost:8090/";

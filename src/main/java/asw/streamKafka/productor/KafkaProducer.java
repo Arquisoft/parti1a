@@ -1,91 +1,19 @@
 package asw.streamKafka.productor;
 
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.SendResult;
-import org.springframework.util.concurrent.ListenableFuture;
-import org.springframework.util.concurrent.ListenableFutureCallback;
+public interface KafkaProducer {
+	// Suggestions
+	public void sendNewSuggestion(String suggestionId, String title);
 
-import javax.annotation.ManagedBean;
+	public void sendDeleteSuggestion(String suggestionId);
 
-@ManagedBean
-public class KafkaProducer {
+	public void sendPositiveSuggestion(String suggestionId);
 
-	private static final Logger logger = Logger.getLogger(KafkaProducer.class);
-
-	private KafkaTemplate<String, String> kafkaTemplate;
-
-	@Autowired
-	public KafkaProducer(KafkaTemplate<String, String> kafkaTemplate) {
-		this.kafkaTemplate = kafkaTemplate;
-	}
-
-	// Sugerencias
-	public void sendNewSuggestion(String suggestionId, String title) {
-		send(Topics.NEW_SUGGESTION,
-				"{ \"suggestion\":\"" + suggestionId + "\", \"title\":\"" + title + "\"}");
-	}
-
-	public void sendDeleteSuggestion(String suggestionId) {
-		send(Topics.DELETE_SUGGESTION, "{ \"suggestion\":\"" + suggestionId + "\" }");
-	}
-
-	public void sendPositiveSuggestion(String suggestionId) {
-		send(Topics.POSITIVE_SUGGESTION, "{ \"suggestion\":\"" + suggestionId + "\"}");
-	}
-	
-	public void sendAlertSuggestion(String suggestionId) {
-		send(Topics.ALERT_SUGGESTION, "{ \"suggestion\":\"" + suggestionId + "\"}");
-	}
+	public void sendAlertSuggestion(String suggestionId);
 
 	// Comentarios
-	public void sendNewComment(String commentId, String suggestionId) {
-		send(Topics.NEW_COMMENT,
-				"{ \"comment\":\"" + commentId + "\", \"suggestion\":\"" + suggestionId + "\"}");
-	}
+	public void sendNewComment(String commentId, String suggestionId);
 
-	public void sendPositiveComment(String commentId, String suggestionId) {
-		send(Topics.POSITIVE_COMMENT,
-				"{ \"comment\":\"" + commentId + "\", \"suggestion\":\"" + suggestionId + "\"}");
-	}
+	public void sendPositiveComment(String commentId, String suggestionId);
 
-	public void sendNegativeComment(String commentId, String suggestionId) {
-		send(Topics.NEGATIVE_COMMENT,
-				"{ \"comment\":\"" + commentId + "\", \"suggestion\":\"" + suggestionId + "\"}");
-	}
-
-	// Otras (no las usamos en el dashboard)
-	public void sendMinVotesReached(long suggestionId) {
-		send(Topics.MIN_VOTES_REACHED, "Se ha alcanzado el mínimo de votos -> " + suggestionId);
-	}
-
-	public void sendNewCategory(long catId) {
-		send(Topics.NEW_CATEGORY, "Creada la categoria -> " + catId);
-	}
-
-	public void sendDeleteCategory(long catId) {
-		send(Topics.DELETE_CATEGORY, "Borrada la categoria -> " + catId);
-	}
-
-	public void sendDeniedSuggestion(long suggestionId) {
-		send(Topics.DENIED_SUGGESTION, "Denegada la propuesta -> " + suggestionId);
-	}
-
-	public void send(String topic, String data) {
-		ListenableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, data);
-		future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
-			@Override
-			public void onSuccess(SendResult<String, String> result) {
-				logger.info("Success on sending message \"" + data + "\" to topic " + topic);
-			}
-
-			@Override
-			public void onFailure(Throwable ex) {
-				logger.error(
-						"Error on sending message \"" + data + "\", stacktrace " + ex.getMessage());
-			}
-		});
-	}
-
+	public void sendNegativeComment(String commentId, String suggestionId);
 }

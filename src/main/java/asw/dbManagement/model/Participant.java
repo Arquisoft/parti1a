@@ -41,7 +41,7 @@ public class Participant {
 	private Set<Suggestion> suggestions = new HashSet<Suggestion>();
 	@OneToMany(mappedBy = "participant", fetch = FetchType.EAGER)
 	private Set<Comment> commentaries = new HashSet<Comment>();
-	@OneToMany(mappedBy = "participant")
+	@OneToMany(mappedBy = "participant", fetch = FetchType.EAGER)
 	private Set<VoteSuggestion> votesSuggestion = new HashSet<VoteSuggestion>();
 	@OneToMany(mappedBy = "participant")
 	private Set<VoteComment> votesCommentaries = new HashSet<VoteComment>();

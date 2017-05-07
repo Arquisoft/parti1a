@@ -9,7 +9,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Entonces;
-import selenium.page_objects.PO_LoginForm;
+import selenium.util.PO_LoginForm;
 
 public class LoginIncorrectoSteps {
 	private WebDriver driver = null;

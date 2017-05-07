@@ -10,21 +10,21 @@ public class Validate {
 
 	public static void validateAdmin(HttpSession session) {
 		if (session.getAttribute("usuario") == null)
-			throw ErrorFactory.getError(Errors.USER_NOT_FOUND);
+			throw ErrorFactory.getError(Errors.UNAUTHORIZED);
 		else {
 			Participant p = (Participant) session.getAttribute("usuario");
 			if (!p.isAdmin())
-				throw ErrorFactory.getError(Errors.USER_NOT_FOUND);
+				throw ErrorFactory.getError(Errors.UNAUTHORIZED);
 		}
 	}
 
 	public static void validateUser(HttpSession session) {
 		if (session.getAttribute("usuario") == null)
-			throw ErrorFactory.getError(Errors.USER_NOT_FOUND);
+			throw ErrorFactory.getError(Errors.UNAUTHORIZED);
 		else {
 			Participant p = (Participant) session.getAttribute("usuario");
 			if (p.isAdmin())
-				throw ErrorFactory.getError(Errors.USER_NOT_FOUND);
+				throw ErrorFactory.getError(Errors.UNAUTHORIZED);
 		}
 	}
 }

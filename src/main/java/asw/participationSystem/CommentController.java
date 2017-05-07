@@ -20,7 +20,7 @@ import asw.dbManagement.model.Comment;
 import asw.dbManagement.model.Participant;
 import asw.dbManagement.model.Suggestion;
 import asw.dbManagement.model.Word;
-import asw.streamKafka.productor.KafkaProducer;
+import asw.streamKafka.productor.KafkaProducerImpl;
 
 @Controller
 public class CommentController {
@@ -40,7 +40,7 @@ public class CommentController {
 	private WordService wordService;
 
 	@Autowired
-	private KafkaProducer kafka;
+	private KafkaProducerImpl kafka;
 
 	@RequestMapping("/comments")
 	public String showComments(@RequestParam("sugerencia") Long id, HttpSession session,
