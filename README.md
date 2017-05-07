@@ -6,7 +6,7 @@
 
 Versión de Kafka utilizada: 2.11
 
-### GuestUsers en Heroku!
+Ejecutar en Heroku
 [![GuestUsers Heroku](https://img.shields.io/badge/View%20on-Heroku-ff69b4.svg)](http://parti1a.herokuapp.com/) 
 
 # Authors
