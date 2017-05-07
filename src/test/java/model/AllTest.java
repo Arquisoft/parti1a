@@ -8,8 +8,10 @@ import model.associtation.ComentarTest;
 import model.associtation.ProponerTest;
 import model.associtation.VotarCommentaryTest;
 import model.associtation.VotarSuggestionTest;
+import model.domain.SuggestionCategoryTest;
 import model.domain.VoteCommentaryTest;
 import model.domain.VoteSuggestionTest;
+import model.domain.WordTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
@@ -18,7 +20,9 @@ import model.domain.VoteSuggestionTest;
 	VotarCommentaryTest.class,
 	VotarSuggestionTest.class,
 	VoteSuggestionTest.class,
-	VoteCommentaryTest.class
+	VoteCommentaryTest.class,
+	WordTest.class,
+	SuggestionCategoryTest.class
 })
 public class AllTest {
 

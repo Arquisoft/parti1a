@@ -179,6 +179,7 @@ public class VoteCommentaryTest {
 		assertFalse(comentario1.equals(4));
 		assertFalse(comentario1.equals(null));
 		assertTrue(comentario1.equals(comentario1));
+		assertTrue(comentario2.equals(comentario3));
 
 		assertFalse(voto1.equals(voto2));
 		assertFalse(voto1.equals(4));
