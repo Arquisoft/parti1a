@@ -2,6 +2,8 @@ package dbManagement.impl;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import asw.Application;
+import asw.dbManagement.CommentService;
 import asw.dbManagement.ParticipantService;
+import asw.dbManagement.model.Comment;
 import asw.dbManagement.model.Participant;
 
 @RunWith(SpringRunner.class)
@@ -22,6 +26,9 @@ public class ParticipantServiceImplTest {
 
 	@Autowired
 	private ParticipantService service;
+	
+	@Autowired
+	private CommentService cs;
 
 	@Test
 	public void testGetParticipant() {
@@ -58,11 +65,10 @@ public class ParticipantServiceImplTest {
 
 	@Test
 	public void testSupportCommentNegative() {
-		boolean result = service.supportCommentNegative(new Long(1), new Long(1));
-		if (result)
-			assertEquals(true, result);
-		else
-			assertEquals(false, result);
+		List<Comment> list = cs.getAllComments();
+		list.get(0).setVotosNegativos(1);
+		boolean result = service.supportCommentNegative(new Long(1), new Long(194));
+		assertEquals(true, result);
 
 	}
 

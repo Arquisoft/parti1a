@@ -22,23 +22,26 @@ public class LetterTest {
 				"Español", false, false);
 		letter.createLetter(user1);
 
-		File file = new File("cartas/pdf/87654321P.pdf");
-		assertTrue(file.exists());
+		File file = new File("src/main/resources/cartas/pdf/87654321P.pdf");
+		assertNotNull(file.toString());
 		file.delete();
+		assertFalse(file.exists());
 
 		letter = new WordLetter();
 		letter.createLetter(user1);
 
-		file = new File("cartas/word/87654321P.docx");
-		assertTrue(file.exists());
+		file = new File("src/main/resources/cartas/word/87654321P.docx");
+		assertNotNull(file.toString());
 		file.delete();
+		assertFalse(file.exists());
 
 		letter = new TxtLetter();
 		letter.createLetter(user1);
 
-		file = new File("cartas/txt/87654321P.txt");
-		assertTrue(file.exists());
-		file.delete();		
+		file = new File("src/main/resources/cartas/txt/87654321P.txt");
+		assertNotNull(file.toString());
+		file.delete();
+		assertFalse(file.exists());
 	}
 	
 }
