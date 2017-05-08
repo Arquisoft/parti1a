@@ -17,10 +17,10 @@ public class WordLetter extends Letter {
 
 	public void createLetter(Participant user) throws FileNotFoundException, DocumentException, IOException {
 		XWPFDocument documento = new XWPFDocument();
-		File folder = new File("cartas/word");
+		File folder = new File("src/main/resources/cartas/word");
 		if (!folder.exists())
 			folder.mkdirs();
-		carta = new FileOutputStream("cartas/word/" + user.getDNI() + ".docx");
+		carta = new FileOutputStream("src/main/resources/cartas/word/" + user.getDNI() + ".docx");
 		XWPFParagraph paragraph = documento.createParagraph();
 		XWPFRun run = paragraph.createRun();
 		run.setText("Usuario: " + user.getEmail());

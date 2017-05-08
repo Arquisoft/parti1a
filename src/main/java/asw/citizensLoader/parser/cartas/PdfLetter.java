@@ -17,10 +17,10 @@ public class PdfLetter extends Letter {
 	public void createLetter(Participant user) throws DocumentException, FileNotFoundException {
 		document = null;
 		FileOutputStream letter = null;
-		File folder = new File("cartas/pdf");
+		File folder = new File("src/main/resources/cartas/pdf");
 		if (!folder.exists())
 			folder.mkdirs();
-		letter = new FileOutputStream("cartas/pdf/" + user.getDNI() + ".pdf");
+		letter = new FileOutputStream("src/main/resources/cartas/pdf/" + user.getDNI() + ".pdf");
 		document = new Document();
 		PdfWriter.getInstance(document, letter);
 		document.open();

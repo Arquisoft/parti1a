@@ -1,2 +1,0 @@
-Usuario: luis@example.com
- Password: XVIPMRIGV404
