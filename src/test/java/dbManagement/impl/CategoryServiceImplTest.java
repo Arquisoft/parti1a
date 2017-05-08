@@ -27,32 +27,40 @@ public class CategoryServiceImplTest {
 	private CategoryService service;
 
 	@Test
-	public void testGetCategoryById() {
-		Category c = service.getCategoryById(new Long(1));
-		assertEquals("PruebaCat", c.getName());
-		assertEquals(new Long(1), c.getId());
+	public void t1_testGetCategoryById() {
+		Category c = service.getCategoryById(new Long(17));
+		assertEquals("Ocio23", c.getName());
+		assertEquals(new Long(17), c.getId());
 		assertNotNull(c.getSuggestions());
 	}
 
 	@Test
-	public void testGetCategoryByName() {
-		Category c = service.getCategoryByName("PruebaCat");
-		assertEquals("PruebaCat", c.getName());
-		assertEquals(new Long(1), c.getId());
+	public void t2_testGetCategoryByName() {
+		Category c = service.getCategoryByName("Ocio23");
+		assertEquals(new Long(17), c.getId());
+		assertEquals("Ocio23", c.getName());
 		assertNotNull(c.getSuggestions());
 	}
 
 	@Test
-	public void testGetAllCategories() {
+	public void t3_testGetAllCategories() {
 		List<Category> categories = service.getAllCategories();
 		assertEquals(categories.size(), categories.size());
 	}
 
 	@Test
-	public void testSaveCategory() {
+	public void t4_testSaveCategory() {
 		Category c = service.saveCategory(new Category("test"));
 
 		if (c != null) // no existe en la base de datos
 			assertEquals("test", c.getName());
+	}
+	
+	@Test
+	public void t5_testDeleteCategory() {
+		Category c = service.getCategoryByName("test");
+		service.deleteCategory(c);
+		
+		assertEquals(null, service.getCategoryByName("test"));
 	}
 }
