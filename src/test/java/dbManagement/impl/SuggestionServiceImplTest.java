@@ -70,14 +70,13 @@ public class SuggestionServiceImplTest {
 
 	@Test
 	public void testSaveAndDelete() {
-		Suggestion s = service.saveSuggestion(new Suggestion("IdentificadorTest", "prueba", "prueba test",
-				ps.getParticipant("pepe@participant.es", "12345"), cs.getCategoryById(new Long(1))));
+		Suggestion s = service.saveSuggestion(new Suggestion("Prueba testSaveAndDelete", "prueba", "prueba test",
+				ps.getParticipant("pepe@participant.es", "12345"), cs.getCategoryById(new Long(17))));
 		assertEquals("prueba test", s.getDescripcion());
-		assertEquals("IdentificadorTest", s.getIdentificador());
+		assertEquals("Prueba testSaveAndDelete", s.getIdentificador());
 		assertEquals("prueba", s.getTitulo());
 
 		// Delete
-
 		service.deleteSuggestion(s);
 	}
 }

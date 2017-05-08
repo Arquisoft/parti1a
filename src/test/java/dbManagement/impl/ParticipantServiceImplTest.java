@@ -2,8 +2,6 @@ package dbManagement.impl;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
-
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +16,7 @@ import asw.dbManagement.CommentService;
 import asw.dbManagement.ParticipantService;
 import asw.dbManagement.model.Comment;
 import asw.dbManagement.model.Participant;
+import asw.dbManagement.model.types.VoteType;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -31,7 +30,7 @@ public class ParticipantServiceImplTest {
 	private CommentService cs;
 
 	@Test
-	public void testGetParticipant() {
+	public void t1_testGetParticipant() {
 		Participant p = service.getParticipant("pepe@participant.es", "12345");
 		assertEquals("Pepe", p.getNombre());
 		assertEquals(new Long(1), p.getId());
@@ -46,29 +45,25 @@ public class ParticipantServiceImplTest {
 	}
 
 	@Test
-	public void testSupportSuggestion() {
-		boolean result = service.supportSuggestion(new Long(1), new Long(1));
-		if (result)
-			assertEquals(true, result);
-		else
-			assertEquals(false, result);
+	public void t2_testSupportSuggestion() {
+		boolean result = service.supportSuggestion(new Long(1), new Long(162));
+		assertEquals(false, result);
 	}
 
 	@Test
-	public void testSupportCommentPositive() {
-		boolean result = service.supportCommentPositive(new Long(1), new Long(2));
-		if (result)
-			assertEquals(true, result);
-		else
-			assertEquals(false, result);
+	public void t3_testSupportCommentPositive() {
+		Comment comm = cs.findCommentById(new Long(195));
+		comm.incrementarNumeroVotos(VoteType.POSITIVE);
+		boolean result = service.supportCommentPositive(new Long(1), comm.getId());
+		assertEquals(false, result);
 	}
 
 	@Test
-	public void testSupportCommentNegative() {
-		List<Comment> list = cs.getAllComments();
-		list.get(0).setVotosNegativos(1);
-		boolean result = service.supportCommentNegative(new Long(1), new Long(194));
-		assertEquals(true, result);
+	public void t4_testSupportCommentNegative() {
+		Comment comm = cs.findCommentById(new Long(194));
+		comm.incrementarNumeroVotos(VoteType.NEGATIVE);
+		boolean result = service.supportCommentNegative(new Long(1), comm.getId());
+		assertEquals(false, result);
 
 	}
 
