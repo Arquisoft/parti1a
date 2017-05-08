@@ -149,8 +149,9 @@ public class VoteSuggestionTest {
 		suggestion1.setVotosNegativos(10);
 		suggestion1.setVotosPositivos(10);
 		suggestion1.setEstado(SuggestionState.Aceptada);
-		suggestion1.setFechaCreacion(new Date());
-		suggestion1.setFechaFin(new Date());
+		Date date = new Date();
+		suggestion1.setFechaCreacion(date);
+		suggestion1.setFechaFin(date);
 		suggestion1.setPopularidad(10);
 
 		assertTrue(suggestion1.getDescripcion().equals("Eliminar prohibicion al botellones"));
@@ -160,8 +161,8 @@ public class VoteSuggestionTest {
 		assertTrue(suggestion1.getVotosNegativos() == 10);
 		assertTrue(suggestion1.getVotosPositivos() == 10);
 		assertTrue(suggestion1.getEstado().equals(SuggestionState.Aceptada));
-		assertTrue(suggestion1.getFechaCreacion().equals(new Date()));
-		assertTrue(suggestion1.getFechaFin().equals(new Date()));
+		assertTrue(suggestion1.getFechaCreacion().equals(date));
+		assertTrue(suggestion1.getFechaFin().equals(date));
 		assertTrue(suggestion1.getPopularidad() == 10);
 		
 		vote1.setVoteType(VoteType.NEGATIVE);
