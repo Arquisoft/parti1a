@@ -4,7 +4,7 @@
 [![GuestUsers Heroku](https://img.shields.io/badge/View%20on-Heroku-ff69b4.svg)](http://parti1a.herokuapp.com/)
 # parti1a
 
-Versión de Kafka utilizada: 2.11
+Versión de Kafka utilizada:  2.11
 
 # Authors
 
