@@ -4,25 +4,22 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import asw.Application;
-import asw.dbManagement.ParticipantService;
-import asw.dbManagement.UpdateInfo;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UpdateInfoImplTest {
 
-	@Autowired
-	private UpdateInfo update;
-
-	@Autowired
-	private ParticipantService ps;
+//	@Autowired
+//	private UpdateInfo update;
+//
+//	@Autowired
+//	private ParticipantService ps;
 
 	@Test
 	public void testUpdateEmail() {

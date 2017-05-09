@@ -2,9 +2,20 @@
 [![Build Status](https://travis-ci.org/Arquisoft/parti1a.svg?branch=master)](https://travis-ci.org/Arquisoft/parti1a)
 [![codecov](https://codecov.io/gh/Arquisoft/parti1a/branch/master/graph/badge.svg)](https://codecov.io/gh/Arquisoft/parti1a)
 [![GuestUsers Heroku](https://img.shields.io/badge/View%20on-Heroku-ff69b4.svg)](http://parti1a.herokuapp.com/)
+
 # parti1a
 
-Versión de Kafka utilizada: 2.11
+### Kafka
+
+Versión: 2.11
+
+### Usuarios disponibles
+
+Los usuarios disponibles para logearse en el sistema son:
+
+- Administrador: admin@domain.com, admin123
+- Político: jose@gmail.com, 123456
+- Usuarios normales: pepe@participant.es, 12345
 
 # Authors
 
@@ -12,7 +23,7 @@ Versión de Kafka utilizada: 2.11
 - Martín Peláez Díaz (UO236974)
 - Laura Menéndez Pérez (UO244646)
 - Fernando Palazuelo Ginzo (UO244588)
-- Daniel Alba Muíz (UO245188)
+- Daniel Alba Muñiz (UO245188)
 - Rubén de la Varga Cabero (UO246977)
 - Ignacio Escribano Burgos (UO227766)
 - Daniel Duque Barrientos (UO245553)
