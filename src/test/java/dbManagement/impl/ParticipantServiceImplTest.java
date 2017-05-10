@@ -85,7 +85,7 @@ public class ParticipantServiceImplTest {
 	}
 
 	private void createComments() {
-		String identificador = "IdentificadorTest";
+		String identificador = "Pruebas";
 		int num = serviceComment.getAllComments().size();
 		c1 = serviceComment.saveComment(new Comment(identificador + num, "test1", p, s));
 		c2 = serviceComment.saveComment(new Comment(identificador + num + 1, "test2", p, s));

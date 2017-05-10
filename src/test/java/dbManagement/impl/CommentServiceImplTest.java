@@ -62,7 +62,7 @@ public class CommentServiceImplTest {
 
 	@Test
 	public void testSaveComment() {
-		String identificador = "IdentificadorTest";
+		String identificador = "PruebasIdent";
 		List<Comment> list = service.getAllComments();
 		identificador = identificador + list.size();
 		Comment c = service.saveComment(new Comment(identificador, "test",
