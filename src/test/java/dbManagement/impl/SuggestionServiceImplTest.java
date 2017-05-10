@@ -74,7 +74,7 @@ public class SuggestionServiceImplTest {
 		Suggestion s = service.saveSuggestion(new Suggestion(identificador, "prueba", "prueba test",
 				ps.getParticipant("pepe@participant.es", "12345"), cs.getCategoryById(new Long(17))));
 		assertEquals("prueba test", s.getDescripcion());
-		assertEquals("Prueba testSaveAndDelete", s.getIdentificador());
+		assertEquals(identificador, s.getIdentificador());
 		assertEquals("prueba", s.getTitulo());
 
 		// Delete
