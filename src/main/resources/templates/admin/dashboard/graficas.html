@@ -63,7 +63,7 @@
 			var obj = JSON.parse(event.data);
 			
 			barChartData.labels.push(obj.suggestion);
-			barChartData.datasets[0].data.push(1);
+			barChartData.datasets[0].data.push(0);
 			
 			window.chartBar.update();
 		});
