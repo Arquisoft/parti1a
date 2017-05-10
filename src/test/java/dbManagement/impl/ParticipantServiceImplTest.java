@@ -12,10 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import asw.Application;
+import asw.dbManagement.CategoryService;
 import asw.dbManagement.CommentService;
 import asw.dbManagement.ParticipantService;
+import asw.dbManagement.SuggestionService;
 import asw.dbManagement.model.Comment;
 import asw.dbManagement.model.Participant;
+import asw.dbManagement.model.Suggestion;
 import asw.dbManagement.model.types.VoteType;
 
 @RunWith(SpringRunner.class)
@@ -24,14 +27,25 @@ import asw.dbManagement.model.types.VoteType;
 public class ParticipantServiceImplTest {
 
 	@Autowired
-	private ParticipantService service;
-	
+	private ParticipantService serviceParticipant;
+
 	@Autowired
-	private CommentService cs;
+	private SuggestionService serviceSuggestion;
+
+	@Autowired
+	private CommentService serviceComment;
+
+	@Autowired
+	private CategoryService serviceCategory;
+
+	private Participant p;
+	private Suggestion s;
+	private Comment c1;
+	private Comment c2;
 
 	@Test
 	public void t1_testGetParticipant() {
-		Participant p = service.getParticipant("pepe@participant.es", "12345");
+		Participant p = serviceParticipant.getParticipant("pepe@participant.es", "12345");
 		assertEquals("Pepe", p.getNombre());
 		assertEquals(new Long(1), p.getId());
 		assertEquals("Gonzalez", p.getApellidos());
@@ -45,26 +59,35 @@ public class ParticipantServiceImplTest {
 	}
 
 	@Test
-	public void t2_testSupportSuggestion() {
-		boolean result = service.supportSuggestion(new Long(1), new Long(162));
-		assertEquals(false, result);
+	public void t3_testSuggestionAndComments() {
+		p = serviceParticipant.getParticipant("pepe@participant.es", "12345");
+		createSuggestion();
+		createComments();
+		
+		boolean result = serviceParticipant.supportSuggestion(new Long(1), s.getId());
+		assertEquals(true, result);
+		
+		c1.incrementarNumeroVotos(VoteType.POSITIVE);
+		result = serviceParticipant.supportCommentPositive(new Long(1), c1.getId());
+		assertEquals(true, result);
+		
+		c2.incrementarNumeroVotos(VoteType.NEGATIVE);
+		result = serviceParticipant.supportCommentNegative(new Long(1), c2.getId());
+		assertEquals(true, result);
+		
+		serviceSuggestion.deleteSuggestion(s);
 	}
 
-	@Test
-	public void t3_testSupportCommentPositive() {
-		Comment comm = cs.findCommentById(new Long(195));
-		comm.incrementarNumeroVotos(VoteType.POSITIVE);
-		boolean result = service.supportCommentPositive(new Long(1), comm.getId());
-		assertEquals(false, result);
+	private void createSuggestion() {
+		String identificador = "IdentificadorTest" + serviceSuggestion.getAllSuggestions().size();
+		s = serviceSuggestion.saveSuggestion(new Suggestion(identificador, "prueba", "prueba test",
+				p, serviceCategory.getCategoryById(new Long(17))));
 	}
 
-	@Test
-	public void t4_testSupportCommentNegative() {
-		Comment comm = cs.findCommentById(new Long(194));
-		comm.incrementarNumeroVotos(VoteType.NEGATIVE);
-		boolean result = service.supportCommentNegative(new Long(1), comm.getId());
-		assertEquals(false, result);
-
+	private void createComments() {
+		String identificador = "IdentificadorTest";
+		int num = serviceComment.getAllComments().size();
+		c1 = serviceComment.saveComment(new Comment(identificador + num, "test1", p, s));
+		c2 = serviceComment.saveComment(new Comment(identificador + num + 1, "test2", p, s));
 	}
-
 }
