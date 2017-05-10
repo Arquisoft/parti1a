@@ -59,7 +59,7 @@ public class ParticipantServiceImplTest {
 	}
 
 	@Test
-	public void t3_testSuggestionAndComments() {
+	public void t2_testSuggestionAndComments() {
 		p = serviceParticipant.getParticipant("pepe@participant.es", "12345");
 		createSuggestion();
 		createComments();
