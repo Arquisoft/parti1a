@@ -3,7 +3,6 @@ package asw.dashboard.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
 
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter.SseEventBuilder;
 
-import asw.citizensLoader.reportwriter.ReportWriter;
 import asw.dashboard.EventController;
 import asw.streamKafka.productor.util.Topics;
 
@@ -25,9 +23,6 @@ public class EventControllerImpl implements EventController {
 	public void newSuggestion(String data) {
 		SseEventBuilder event = SseEmitter.event().name("newSuggestion").data(data);
 		sendData(event);
-		
-		ReportWriter.getInstance().getWriteReport().log(Level.INFO,
-				"Mensaje " + Topics.NEW_SUGGESTION.toString() + " recibido, actualizando datos...");
 	}
 
 	@RequestMapping(value = "/deleteSuggestion")
@@ -35,9 +30,6 @@ public class EventControllerImpl implements EventController {
 	public void deleteSuggestion(String data) {
 		SseEventBuilder event = SseEmitter.event().name("deleteSuggestion").data(data);
 		sendData(event);
-		
-		ReportWriter.getInstance().getWriteReport().log(Level.INFO,
-				"Mensaje " + Topics.DELETE_SUGGESTION.toString() + " recibido, actualizando datos...");
 	}
 
 	@RequestMapping(value = "/alertSuggestion")
@@ -45,9 +37,6 @@ public class EventControllerImpl implements EventController {
 	public void alertSuggestion(String data) {
 		SseEventBuilder event = SseEmitter.event().name("alertSuggestion").data(data);
 		sendData(event);
-		
-		ReportWriter.getInstance().getWriteReport().log(Level.INFO,
-				"Mensaje " + Topics.ALERT_SUGGESTION.toString() + " recibido, actualizando datos...");
 	}
 
 	@RequestMapping(value = "/voteSuggestion")
@@ -55,9 +44,6 @@ public class EventControllerImpl implements EventController {
 	public void voteSuggestion(String data) {
 		SseEventBuilder event = SseEmitter.event().name("voteSuggestion").data(data);
 		sendData(event);
-		
-		ReportWriter.getInstance().getWriteReport().log(Level.INFO,
-				"Mensaje " + Topics.POSITIVE_SUGGESTION.toString() + " recibido, actualizando datos...");
 	}
 
 	@RequestMapping(value = "/newComment")
@@ -65,9 +51,6 @@ public class EventControllerImpl implements EventController {
 	public void newComment(String data) {
 		SseEventBuilder event = SseEmitter.event().name("newComment").data(data);
 		sendData(event);
-		
-		ReportWriter.getInstance().getWriteReport().log(Level.INFO,
-				"Mensaje " + Topics.NEW_COMMENT.toString() + " recibido, actualizando datos...");
 	}
 
 	@RequestMapping(value = "/positiveComment")
@@ -75,9 +58,6 @@ public class EventControllerImpl implements EventController {
 	public void positiveComment(String data) {
 		SseEventBuilder event = SseEmitter.event().name("positiveComment").data(data);
 		sendData(event);
-		
-		ReportWriter.getInstance().getWriteReport().log(Level.INFO,
-				"Mensaje " + Topics.POSITIVE_COMMENT.toString() + " recibido, actualizando datos...");
 	}
 
 	@RequestMapping(value = "/negativeComment")
@@ -85,9 +65,6 @@ public class EventControllerImpl implements EventController {
 	public void negativeComment(String data) {
 		SseEventBuilder event = SseEmitter.event().name("negativeComment").data(data);
 		sendData(event);
-		
-		ReportWriter.getInstance().getWriteReport().log(Level.INFO,
-				"Mensaje " + Topics.NEGATIVE_COMMENT.toString() + " recibido, actualizando datos...");
 	}
 
 	/************** METODOS AUXILIARES *************/
